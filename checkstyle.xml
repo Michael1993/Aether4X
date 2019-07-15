@@ -43,9 +43,9 @@
 
     <!-- Excludes all 'module-info.java' files              -->
     <!-- See https://checkstyle.org/config_filefilters.html -->
-    <module name="BeforeExecutionExclusionFileFilter">
+    <!--<module name="BeforeExecutionExclusionFileFilter">
         <property name="fileNamePattern" value="module\-info\.java$"/>
-    </module>
+    </module>-->
 
     <!-- Checks that a package-info.java file exists for each package. -->
     <!-- See https://checkstyle.org/config_javadoc.html#JavadocPackage -->
