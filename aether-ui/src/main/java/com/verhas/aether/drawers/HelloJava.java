@@ -1,4 +1,4 @@
-package com.verhas.training.app;
+package com.verhas.aether.drawers;
 
 import javafx.application.Application;
 import javafx.scene.Group;
