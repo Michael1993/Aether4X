@@ -1,6 +1,6 @@
 package com.verhas.aether.drawers;
 
-import com.aether.domain.celestials.Galaxy;
+import com.verhas.aether.domain.celestials.Galaxy;
 
 import javafx.scene.canvas.GraphicsContext;
 

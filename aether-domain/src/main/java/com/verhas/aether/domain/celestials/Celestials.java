@@ -1,4 +1,4 @@
-package com.aether.domain.celestials;
+package com.verhas.aether.domain.celestials;
 
 public enum Celestials {
     SUN,

@@ -51,6 +51,12 @@
 
       <dependency>
         <groupId>com.javax0.geci</groupId>
+        <artifactId>javageci-core-annotations</artifactId>
+        <version>${javax0.javageci.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.javax0.geci</groupId>
         <artifactId>javageci-annotation</artifactId>
         <version>${javax0.javageci.version}</version>
       </dependency>

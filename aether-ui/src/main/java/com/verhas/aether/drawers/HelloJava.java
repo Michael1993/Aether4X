@@ -1,12 +1,17 @@
 package com.verhas.aether.drawers;
 
+import com.verhas.aether.eventhandlers.MapDragHandler;
+import com.verhas.aether.eventhandlers.MapScrollHandler;
+
 import javafx.application.Application;
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
 public class HelloJava extends Application {
@@ -18,45 +23,102 @@ public class HelloJava extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Aether 0X");
+
         Group root = new Group();
-        Canvas canvas = new Canvas(300, 250);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        drawShapes(gc);
-        root.getChildren().add(canvas);
-        primaryStage.setScene(new Scene(root));
+        Pane pane = new Pane(root);
+
+        TestPlanet testPlanet = new TestPlanet();
+        final Node node = testPlanet.asNode();
+
+        pane.getChildren().add(node);
+        Scene scene = new Scene(pane);
+        final MapDragHandler dragHandler = new MapDragHandler();
+        scene.setOnMouseDragged(mouseDragEvent -> {
+            dragHandler.drag(mouseDragEvent, node);
+        });
+        scene.setOnMouseReleased(mouseEvent -> {
+            if(!mouseEvent.isDragDetect()) {
+                dragHandler.stop();
+            }
+        });
+
+        final MapScrollHandler scrollHandler = new MapScrollHandler();
+
+        scene.setOnScroll(scrollEvent -> {
+            scrollHandler.scroll(scrollEvent, node);
+        });
+        scene.setUserAgentStylesheet("system.css");
+
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    private void drawShapes(GraphicsContext gc) {
-        setBackground(gc);
-        TestPlanet planet = new TestPlanet();
-        planet.drawPlanet(gc);
-    }
+    private static class TestPlanet {
+        private double startingAngle = 0.0;
+        private double anglePerDay = 1.0;
+        private double currentTime = 90;
 
-    private void setBackground(GraphicsContext gc) {
-        gc.setFill(Color.DARKBLUE);
-        gc.fillRect(0,0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
-    }
-
-    private class TestPlanet {
-        private double orbitTime = 360.0;
-        private double currentTime = 70.0;
-
-        private long orbitRadius = 30;
-        private long planetRadius = 14;
+        private Point2D centerOfSystem = new Point2D(80,80);
+        private long orbitRadius = 60;
+        private long planetRadius = 5;
         private String planetName = "Earth";
 
-        void drawPlanet(GraphicsContext gc) {
-            double angle = Math.toDegrees((currentTime / orbitTime) * orbitRadius);
-            gc.setFill(Color.BLUE);
-            gc.setStroke(Color.LIGHTGREEN);
-            gc.setLineWidth(1);
-            double planetX = 10 + orbitRadius  - planetRadius + orbitRadius * Math.sin(angle);
-            double planetY = 10 + orbitRadius - planetRadius + orbitRadius * Math.cos(angle);
-            gc.strokeOval(10, 10, orbitRadius * 2, orbitRadius * 2);
-            gc.fillOval(planetX, planetY, planetRadius * 2, planetRadius * 2);
-            gc.setFont(new Font("Arial", 10.0));
-            gc.strokeText(planetName, planetX, planetY + planetRadius * 2 + 10);
+        private Rotate currentRotation;
+
+        Circle orbit() {
+            Circle orbit = new Circle(orbitRadius);
+            orbit.setCenterX(centerOfSystem.getX());
+            orbit.setCenterY(centerOfSystem.getY());
+            orbit.getStyleClass().add("orbit");
+            return orbit;
+        }
+
+        Circle planet() {
+            Circle planet = new Circle(planetRadius);
+            planet.setCenterX(centerOfSystem.getX() + orbitRadius);
+            planet.setCenterY(centerOfSystem.getY());
+            planet.getStyleClass().add("planet");
+
+            planet.getTransforms().add(rotation());
+
+            return planet;
+        }
+
+
+
+        Node name(Circle planet) {
+            Text planetName = new Text(this.planetName);
+
+            final Point2D center = planet.localToParent(planet.getCenterX(), planet.getCenterY());
+
+            planetName.setX(center.getX() - this.planetName.length() * 2);
+            planetName.setY(center.getY() + planetRadius * 4);
+
+            planetName.getStyleClass().add("planet-name");
+
+            return planetName;
+        }
+
+        Rotate rotation() {
+            double angle = startingAngle + anglePerDay * currentTime;
+            if(currentRotation == null || currentRotation.getAngle() != angle) {
+                currentRotation = new Rotate(-angle, centerOfSystem.getX(), centerOfSystem.getY());
+            }
+            return currentRotation;
+        }
+
+        Node asNode() {
+            Group celestial = new Group();
+            final var orbit = this.orbit();
+            final var planet = this.planet();
+            final var name = this.name(planet);
+            celestial.getChildren().addAll(
+                orbit,
+                planet,
+                name
+            );
+
+            return celestial;
         }
     }
 }
