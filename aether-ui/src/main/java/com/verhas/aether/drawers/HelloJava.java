@@ -48,7 +48,7 @@ public class HelloJava extends Application {
             scrollHandler.scroll(scrollEvent, node);
         });
         scene.setUserAgentStylesheet("system.css");
-
+        pane.getStyleClass().add("system");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
