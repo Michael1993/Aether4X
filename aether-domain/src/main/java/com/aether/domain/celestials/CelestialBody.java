@@ -1,9 +1,9 @@
-package com.verhas.aether.domain.celestials;
+package com.aether.domain.celestials;
 
 import javax0.geci.core.annotations.Accessor;
 
 @Accessor
-public class CelestialBody {
+public final class CelestialBody {
     private final String name;
     private final double orbitalPeriod;
 

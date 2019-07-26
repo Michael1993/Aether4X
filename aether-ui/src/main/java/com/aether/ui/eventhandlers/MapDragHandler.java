@@ -1,4 +1,4 @@
-package com.verhas.aether.eventhandlers;
+package com.aether.ui.eventhandlers;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Node;

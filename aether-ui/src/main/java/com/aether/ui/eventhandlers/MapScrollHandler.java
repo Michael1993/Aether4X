@@ -1,4 +1,4 @@
-package com.verhas.aether.eventhandlers;
+package com.aether.ui.eventhandlers;
 
 import javafx.scene.Node;
 import javafx.scene.input.ScrollEvent;

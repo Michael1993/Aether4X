@@ -1,7 +1,7 @@
-package com.verhas.aether.drawers;
+package com.aether.ui.drawers;
 
-import com.verhas.aether.eventhandlers.MapDragHandler;
-import com.verhas.aether.eventhandlers.MapScrollHandler;
+import com.aether.ui.eventhandlers.MapDragHandler;
+import com.aether.ui.eventhandlers.MapScrollHandler;
 
 import javafx.application.Application;
 import javafx.geometry.Point2D;
