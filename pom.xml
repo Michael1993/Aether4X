@@ -12,9 +12,28 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
         <configuration>
           <source>11</source>
           <target>11</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <configLocation>checkstyle.xml</configLocation>
+          <failsOnError>true</failsOnError>
+          <consoleOutput>true</consoleOutput>
         </configuration>
       </plugin>
     </plugins>
@@ -40,25 +59,6 @@
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-graphics</artifactId>
         <version>12</version>
-      </dependency>
-
-      <!-- Java::Geci dependencies for code generation -->
-      <dependency>
-        <groupId>com.javax0.geci</groupId>
-        <artifactId>javageci-core</artifactId>
-        <version>${javax0.javageci.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>com.javax0.geci</groupId>
-        <artifactId>javageci-core-annotations</artifactId>
-        <version>${javax0.javageci.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>com.javax0.geci</groupId>
-        <artifactId>javageci-annotation</artifactId>
-        <version>${javax0.javageci.version}</version>
       </dependency>
 
       <dependency>

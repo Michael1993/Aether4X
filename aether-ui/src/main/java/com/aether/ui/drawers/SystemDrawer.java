@@ -4,9 +4,8 @@ import com.aether.domain.celestials.System;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
-import javax0.geci.annotations.Geci;
 
-@Geci("builder")
+
 public class SystemDrawer implements Drawer<Parent, System> {
 
     private Point2D center;
