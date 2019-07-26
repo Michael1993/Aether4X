@@ -1,0 +1,6 @@
+language: java
+
+# excluding branches
+# branches:
+#   except:
+#   - 
