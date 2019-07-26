@@ -1,13 +1,15 @@
 # Aether4X
-A clone of [Aurora](), written in Java.
+A clone of [Aurora](http://aurora2.pentarch.org), written in Java.
 
 ## Goals
 I aim to create a highly modular clone of Aurora, meaning it should be fairly simple to:
  * Replace the data.
  * Replace the UI.
  * Replace some gameplay rules.
+Aether should also be able to load additional game logic/data and merge it with it's base.
  
 The current plan is to use 
- * PostGreSQL for data that doesn't change (i.e.: Space object data)
+ * [PostGreSQL](https://www.postgresql.org) for data that doesn't change (i.e.: Space object data)
  * JSON for data subject to change (i.e.: game data)
- * JavaFX for UI
+ * [GSON](https://github.com/google/gson) for JSON serialization.
+ * [JavaFX](https://openjfx.io) for UI
