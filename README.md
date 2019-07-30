@@ -1,4 +1,5 @@
-# Aether4X https://travis-ci.org/Michael1993/Aether4X.svg?branch=master
+# Aether4X
+<img src="https://travis-ci.org/Michael1993/Aether4X.svg?branch=master"/>
 A clone of [Aurora](http://aurora2.pentarch.org), written in Java.
 
 ## Goals
