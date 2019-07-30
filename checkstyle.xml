@@ -4,40 +4,10 @@
   "https://checkstyle.org/dtds/configuration_1_3.dtd">
 
 <!--
-
-  Checkstyle configuration that checks the sun coding conventions from:
-
-    - the Java Language Specification at
-      https://docs.oracle.com/javase/specs/jls/se11/html/index.html
-
-    - the Sun Code Conventions at https://www.oracle.com/technetwork/java/codeconvtoc-136057.html
-
-    - the Javadoc guidelines at
-      https://www.oracle.com/technetwork/java/javase/documentation/index-137868.html
-
-    - the JDK Api documentation https://docs.oracle.com/en/java/javase/11/
-
-    - some best practices
-
-  Checkstyle is very configurable. Be sure to read the documentation at
-  https://checkstyle.org (or in your downloaded distribution).
-
-  Most Checks are configurable, be sure to consult the documentation.
-
-  To completely disable a check, just comment it out or delete it from the file.
-
-  Finally, it is worth reading the documentation.
-
+  Using Checkstyle 8.22
 -->
 
 <module name="Checker">
-  <!--
-      If you set the basedir property below, then all reported file
-      names will be relative to the specified directory. See
-      https://checkstyle.org/5.x/config.html#Checker
-
-      <property name="basedir" value="${basedir}"/>
-  -->
   <property name="fileExtensions" value="java, properties, xml"/>
 
   <!-- Excludes all 'module-info.java' files              -->
@@ -46,13 +16,13 @@
     <property name="fileNamePattern" value="module\-info\.java$"/>
   </module>
 
-  <!-- Checks that a package-info.java file exists for each package. -->
-  <!-- See https://checkstyle.org/config_javadoc.html#JavadocPackage -->
+  <!-- package-info.java file should exist for each package, but not mandatory. -->
+  <!-- See https://checkstyle.org/config_javadoc.html#JavadocPackage            -->
   <module name="JavadocPackage">
     <property name="severity" value="warning"/>
   </module>
 
-  <!-- Checks whether files end with a new line.                      -->
+  <!-- Files should end with a single empty line.                     -->
   <!-- See https://checkstyle.org/config_misc.html#NewlineAtEndOfFile -->
   <module name="NewlineAtEndOfFile"/>
 
@@ -60,12 +30,12 @@
   <!-- See https://checkstyle.org/config_misc.html#Translation -->
   <module name="Translation"/>
 
-  <!-- Checks for Size Violations.                  -->
-  <!-- See https://checkstyle.org/config_sizes.html -->
+  <!-- Files should not be longer than 2000 lines.             -->
+  <!-- See https://checkstyle.org/config_sizes.html#FileLength -->
   <module name="FileLength"/>
 
-  <!-- Checks for whitespace                             -->
-  <!-- See https://checkstyle.org/config_whitespace.html -->
+  <!-- Java source files should not have tab characters in them. -->
+  <!-- See https://checkstyle.org/config_whitespace.html         -->
   <module name="FileTabCharacter"/>
 
   <!-- Miscellaneous other checks.                 -->
@@ -78,301 +48,425 @@
   </module>
 
   <module name="TreeWalker">
-    <property name="severity" value="error"/>
+    <!-- Indentation check. -->
     <property name="tabWidth" value="4"/>
+
+    <!-- ### JAVADOC CONFIGURATION ### -->
+
+    <!-- Public or protected methods should have documentation.          -->
+    <!-- Standard setters and getters don't need javadoc                 -->
+    <!-- https://checkstyle.org/config_javadoc.html#MissingJavadocMethod -->
+    <module name="MissingJavadocMethod">
+      <property name="scope" value="protected"/>
+    </module>
+    <!-- https://checkstyle.org/config_javadoc.html#JavadocMethod -->
     <module name="JavadocMethod">
-      <property name="severity" value="error"/>
       <property name="scope" value="protected"/>
       <property name="allowUndeclaredRTE" value="true"/>
       <property name="allowMissingPropertyJavadoc" value="true"/>
       <property name="tokens" value="METHOD_DEF"/>
     </module>
+    <!-- Public types should have documentation.                       -->
+    <!-- https://checkstyle.org/config_javadoc.html#MissingJavadocType -->
+    <module name="MissingJavadocType"/>
+    <!-- https://checkstyle.org/config_javadoc.html#JavadocType -->
     <module name="JavadocType">
-      <property name="severity" value="error"/>
       <property name="scope" value="public"/>
     </module>
+    <!-- Documentation body should not be empty.                 -->
+    <!-- https://checkstyle.org/config_javadoc.html#JavadocStyle -->
     <module name="JavadocStyle">
-      <property name="severity" value="error"/>
       <property name="checkEmptyJavadoc" value="true"/>
     </module>
-    <module name="ConstantName">
-      <property name="severity" value="error"/>
+
+    <!-- ### NAMING CONFIGURATION ### -->
+
+    <!-- https://checkstyle.org/config_naming.html#AbbreviationAsWordInName -->
+    <module name="AbbreviationAsWordInName">
+      <property name="allowedAbbreviationLength" value="0" />
     </module>
+    <!-- Catch parameter names should use camelCase.                  -->
+    <!-- https://checkstyle.org/config_naming.html#CatchParameterName -->
+    <module name="CatchParameterName"/>
+    <!-- Constants (static and final) should use UPPER_CASE_SNAKE_CASE. -->
+    <!-- https://checkstyle.org/config_naming.html#ConstantName         -->
+    <module name="ConstantName"/>
+    <!-- Local final variables should be at least 2 character long and use camelCase. -->
+    <!-- https://checkstyle.org/config_naming.html#LocalFinalVariableName             -->
     <module name="LocalFinalVariableName">
-      <property name="severity" value="error"/>
+      <property name="format" value="^[a-z][a-zA-Z0-9]+$" />
+      <message key="name.invalidPattern" value="Name ''{0}'' must be longer than 1 character and use camelCase format: ''{1}''."/>
     </module>
+    <!-- Local variable names should be at least 2 character long and use camelCase. -->
+    <!-- https://checkstyle.org/config_naming.html#LocalVariableName                 -->
     <module name="LocalVariableName">
-      <property name="severity" value="error"/>
+      <property name="format" value="^[a-z][a-zA-Z0-9]+$" />
+      <property name="allowOneCharVarInForLoop" value="true" />
+      <message key="name.invalidPattern" value="Name ''{0}'' must be longer than 1 character and use camelCase format: ''{1}''."/>
     </module>
+    <!-- Member names should be at least 2 character long and use camelCase. -->
+    <!-- https://checkstyle.org/config_naming.html#MemberName                -->
     <module name="MemberName">
-      <property name="severity" value="error"/>
+      <property name="format" value="^[a-z][a-zA-Z0-9]+$" />
+      <message key="name.invalidPattern" value="Name ''{0}'' must be longer than 1 character and use camelCase format: ''{1}''."/>
     </module>
+    <!-- Method names should be at least 2 character long and use camelCase. -->
+    <!-- https://checkstyle.org/config_naming.html#MethodName                -->
     <module name="MethodName">
-      <property name="severity" value="error"/>
+      <property name="format" value="^[a-z][a-zA-Z0-9]+$" />
     </module>
+    <!-- Package names should start with a lowercase letter and only contains lowercase letters or numbers. -->
+    <!-- https://checkstyle.org/config_naming.html#PackageName                                              -->
     <module name="PackageName">
-      <property name="severity" value="error"/>
+      <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
     </module>
-    <module name="ParameterName">
-      <property name="severity" value="error"/>
-    </module>
+    <!-- Parameter names should use camelCase.                   -->
+    <!-- https://checkstyle.org/config_naming.html#ParameterName -->
+    <module name="ParameterName"/>
+    <!-- Lambda parameter names should use camelCase.                   -->
+    <!-- https://checkstyle.org/config_naming.html#ParameterName        -->
+    <module name="LambdaParameterName"/>
+    <!-- Static variables should be at least 2 character long and use camelCase. -->
+    <!-- https://checkstyle.org/config_naming.html#StaticVariableName            -->
     <module name="StaticVariableName">
-      <property name="severity" value="error"/>
+      <property name="format" value="^[a-z][a-zA-Z0-9]+$" />
+      <message key="name.invalidPattern" value="Name ''{0}'' must be longer than 1 character and use camelCase format: ''{1}''."/>
     </module>
+    <!-- Names for classes, interfaces, enums, and annotations should be at least 2 character long, use PascalCase and not use numbers. -->
+    <!-- https://checkstyle.org/config_naming.html#TypeName                                                                             -->
     <module name="TypeName">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="AvoidStarImport">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="IllegalImport">
-      <property name="severity" value="error"/>
-      <property name="illegalPkgs" value="org.apache.commons"/>
-    </module>
-    <module name="RedundantImport">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="UnusedImports">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="LineLength">
-      <property name="severity" value="error"/>
-      <property name="max" value="160"/>
-    </module>
-    <module name="EmptyForIteratorPad">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="MethodParamPad">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="OperatorWrap">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="ParenPad">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="TypecastParenPad">
-      <property name="severity" value="error"/>
-      <property name="tokens" value="RPAREN,TYPECAST"/>
-    </module>
-    <module name="ModifierOrder">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="RedundantModifier">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="AvoidNestedBlocks">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="EmptyBlock">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="LeftCurly">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="NeedBraces">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="RightCurly">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="EmptyStatement">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="EqualsHashCode">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="IllegalInstantiation">
-      <property name="severity" value="error"/>
-      <property name="classes"
-                value="java.lang.Boolean,java.lang.Integer,java.lang.Long,java.util.GregorianCalendar,java.util.StringTokenizer,java.util.Vector,java.util.Stack,java.util.Hashtable,java.util.Locale.class"/>
-    </module>
-    <module name="InnerAssignment">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="MagicNumber">
-      <property name="severity" value="error"/>
-      <property name="ignoreHashCodeMethod" value="true"/>
-      <property name="ignoreAnnotation" value="true"/>
-    </module>
-    <module name="MissingSwitchDefault">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="SimplifyBooleanExpression">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="SimplifyBooleanReturn">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="FinalClass">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="HideUtilityClassConstructor">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="InterfaceIsType">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="VisibilityModifier">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="ArrayTypeStyle">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="TodoComment">
-      <property name="severity" value="warning"/>
-    </module>
-    <module name="BooleanExpressionComplexity">
-      <property name="severity" value="error"/>
-      <property name="max" value="4"/>
-    </module>
-    <module name="NPathComplexity">
-      <property name="severity" value="error"/>
-      <property name="max" value="20"/>
-    </module>
-    <module name="FallThrough">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="DeclarationOrder">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="IllegalThrows">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="IllegalType">
-      <property name="severity" value="error"/>
-      <property name="tokens" value="METHOD_DEF,PARAMETER_DEF,VARIABLE_DEF"/>
-    </module>
-    <module name="ModifiedControlVariable">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="ReturnCount">
-      <property name="severity" value="error"/>
-      <property name="max" value="1"/>
-    </module>
-    <module name="StringLiteralEquality">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="SuperClone">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="SuperFinalize">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="UnnecessaryParentheses">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="Indentation">
-      <property name="severity" value="error"/>
-      <property name="caseIndent" value="0"/>
-      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="error"/>
-    </module>
-    <module name="ExplicitInitialization">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="MissingDeprecated">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="MissingOverride">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="ClassTypeParameterName">
-      <property name="severity" value="error"/>
-      <property name="format" value="^[A-Z]+[_A-Z]*$"/>
-    </module>
-    <module name="MethodTypeParameterName">
-      <property name="severity" value="error"/>
-      <property name="format" value="^[A-Z]+[_A-Z]*$"/>
-    </module>
-    <module name="PackageAnnotation">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="GenericWhitespace">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="EmptyForInitializerPad">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="DefaultComesLast">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="EqualsAvoidNull">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="MultipleVariableDeclarations">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="NoFinalizer">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="PackageDeclaration">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="ParameterAssignment">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="MutableException">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="ThrowsCount">
-      <property name="severity" value="error"/>
-      <property name="max" value="3"/>
-    </module>
-    <module name="SuppressWarnings">
-      <property name="severity" value="error"/>
-      <property name="format" value="^^(&quot;unchecked&quot;)$"/>
-    </module>
-    <module name="MethodLength">
-      <property name="severity" value="error"/>
-      <property name="id" value="MethodLength_Error"/>
-      <property name="max" value="20"/>
-    </module>
-    <module name="MethodLength">
-      <property name="severity" value="error"/>
-      <property name="id" value="Transformer_MethodLength_Error"/>
-      <property name="max" value="30"/>
-    </module>
-    <module name="ParameterNumber">
-      <property name="severity" value="error"/>
-      <property name="id" value="ParameterNumber_Error"/>
-      <property name="max" value="4"/>
-    </module>
-    <module name="AnonInnerLength">
-      <property name="severity" value="error"/>
-      <property name="max" value="40"/>
-    </module>
-    <module name="AnonInnerLength">
-      <property name="severity" value="error"/>
-      <property name="id" value="AnonInnerLength_Error"/>
-      <property name="max" value="100"/>
-    </module>
-    <module name="ClassFanOutComplexity">
-      <property name="severity" value="error"/>
-      <property name="id" value="ClassFanOutComplexity_Normal_Error"/>
-      <property name="max" value="20"/>
-    </module>
-    <module name="ClassFanOutComplexity">
-      <property name="severity" value="error"/>
-      <property name="id" value="ClassFanOutComplexity_Facade_Error"/>
-      <property name="max" value="32"/>
-    </module>
-    <module name="CyclomaticComplexity">
-      <property name="severity" value="error"/>
-      <property name="id" value="CyclomaticComplexity_Error"/>
-      <property name="max" value="5"/>
-    </module>
-    <module name="AnnotationUseStyle">
-      <property name="severity" value="error"/>
-    </module>
+      <property name="format" value="^[A-Z][a-zA-Z]+$" />
+      <message key="name.invalidPattern" value="Name ''{0}'' must be longer than 1 character and use PascalCase format: ''{1}''."/>
+    </module>
+    <!-- Generictype parameter of a class should be a single uppercase letter. -->
+    <!-- https://checkstyle.org/config_naming.html#ClassTypeParameterName      -->
+    <module name="ClassTypeParameterName"/>
+    <!-- Generic type parameter of a method should be single uppercase letter. -->
+    <!-- https://checkstyle.org/config_naming.html#MethodTypeParameterName     -->
+    <module name="MethodTypeParameterName"/>
+
+    <!-- ### IMPORTS CONFIGURATION ### -->
+
+    <!-- Star imports should be avoided.                            -->
+    <!-- https://checkstyle.org/config_imports.html#AvoidStarImport -->
+    <module name="AvoidStarImport"/>
+    <!-- Static imports should generally be avoided, but not always.  -->
+    <!-- https://checkstyle.org/config_imports.html#AvoidStaticImport -->
+    <module name="AvoidStaticImport">
+      <property name="severity" value="warning" />
+    </module>
+    <!-- Packages defined 'illegal' cannot be used in this project. -->
+    <!-- https://checkstyle.org/config_imports.html#IllegalImport   -->
+    <module name="IllegalImport"/>
+    <!-- Do not use redundant imports.                              -->
+    <!-- https://checkstyle.org/config_imports.html#RedundantImport -->
+    <module name="RedundantImport"/>
+    <!-- Unused import check.                                     -->
+    <!-- https://checkstyle.org/config_imports.html#UnusedImports -->
+    <module name="UnusedImports"/>
+    <!-- Correct import order is: static imports, normal imports in the following order: -->
+    <!-- java, javax, org, com, everything else.                                         -->
+    <!-- https://checkstyle.org/config_imports.html#ImportOrder                          -->
     <module name="ImportOrder">
-      <property name="severity" value="error"/>
       <property name="option" value="top"/>
       <property name="groups" value="java,javax,org,com,*"/>
       <property name="separated" value="true"/>
       <property name="sortStaticImportsAlphabetically" value="true"/>
     </module>
-    <module name="UpperEll">
-      <property name="severity" value="error"/>
+
+    <!-- ### SIZE CONFIGURATION ### -->
+
+    <!-- Use of anonymous inner classes should be avoided.        -->
+    <!-- Use lambdas whenever possible.                           -->
+    <!-- https://checkstyle.org/config_sizes.html#AnonInnerLength -->
+    <module name="AnonInnerLength">
+      <property name="max" value="20"/>
+    </module>
+    <!-- Lines should be no longer than 80 characters.       -->
+    <!-- https://checkstyle.org/config_sizes.html#LineLength -->
+    <module name="LineLength">
+      <property name="ignorePattern" value="[*]+[ A-Za-z]*"/>
+    </module>
+    <!-- Methods should be relatively short, if possible.      -->
+    <!-- https://checkstyle.org/config_sizes.html#MethodLength -->
+    <module name="MethodLength">
+      <property name="severity" value="warning"/>
+      <property name="max" value="16"/>
+      <message key="maxLen.method" value="Method length is ''{0}'' lines. If possible, it should be shorter than ''{1}'' lines."/>
+    </module>
+    <!-- Methods should absolutely be no longer than 48 rows.  -->
+    <!-- https://checkstyle.org/config_sizes.html#MethodLength -->
+    <module name="MethodLength">
+      <property name="id" value="Method_Length_Error" />
+      <property name="max" value="48"/>
+    </module>
+    <!-- A method should not have more than 4 parameters.         -->
+    <!-- https://checkstyle.org/config_sizes.html#ParameterNumber -->
+    <module name="ParameterNumber">
+      <property name="id" value="ParameterNumber_Error"/>
+      <property name="max" value="4"/>
+    </module>
+    <!-- A file should only have one outer type declared.         -->
+    <!-- https://checkstyle.org/config_sizes.html#OuterTypeNumber -->
+    <module name="OuterTypeNumber"/>
+
+    <!-- WHITESPACE CONFIGURATION -->
+
+    <!-- https://checkstyle.org/config_whitespace.html#EmptyForInitializerPad -->
+    <module name="EmptyForInitializerPad"/>
+    <!-- https://checkstyle.org/config_whitespace.html#EmptyForIteratorPad -->
+    <module name="EmptyForIteratorPad"/>
+    <!-- https://checkstyle.org/config_whitespace.html#EmptyLineSeparator -->
+    <module name="EmptyLineSeparator">
+      <property name="allowNoEmptyLineBetweenFields" value="true" />
+      <property name="allowMultipleEmptyLines" value="false" />
+      <property name="allowMultipleEmptyLinesInsideClassMembers" value="false"/>
+    </module>
+    <!-- https://checkstyle.org/config_whitespace.html#GenericWhitespace -->
+    <module name="GenericWhitespace"/>
+    <!-- https://checkstyle.org/config_whitespace.html#MethodParamPad -->
+    <module name="MethodParamPad"/>
+    <!-- https://checkstyle.org/config_whitespace.html#NoLineWrap -->
+    <module name="NoLineWrap"/>
+    <!-- https://checkstyle.org/config_whitespace.html#NoWhitespaceAfter -->
+    <module name="NoWhitespaceAfter"/>
+    <!-- https://checkstyle.org/config_whitespace.html#NoWhitespaceBefore -->
+    <module name="NoWhitespaceBefore"/>
+    <!-- https://checkstyle.org/config_whitespace.html#OperatorWrap -->
+    <module name="OperatorWrap"/>
+    <!-- https://checkstyle.org/config_whitespace.html#ParenPad -->
+    <module name="ParenPad"/>
+    <!-- https://checkstyle.org/config_whitespace.html#SingleSpaceSeparator -->
+    <module name="SingleSpaceSeparator">
+      <property name="severity" value="warning"/>
+    </module>
+    <!-- https://checkstyle.org/config_whitespace.html#TypecastParenPad -->
+    <module name="TypecastParenPad">
+      <property name="tokens" value="RPAREN,TYPECAST"/>
+    </module>
+    <!-- https://checkstyle.org/config_whitespace.html#WhitespaceAfter -->
+    <module name="WhitespaceAfter"/>
+    <!-- https://checkstyle.org/config_whitespace.html#WhitespaceAround -->
+    <module name="WhitespaceAround"/>
+
+    <!-- ### MODIFIERS CONFIGURATION ### -->
+    <!-- https://checkstyle.org/config_modifier.html#ModifierOrder -->
+    <module name="ModifierOrder"/>
+    <!-- https://checkstyle.org/config_modifier.html#RedundantModifier -->
+    <module name="RedundantModifier"/>
+
+    <!-- ### BLOCKS CONFIGURATION ### -->
+
+    <!-- https://checkstyle.org/config_blocks.html#AvoidNestedBlocks -->
+    <module name="AvoidNestedBlocks"/>
+    <!-- https://checkstyle.org/config_blocks.html#EmptyBlock -->
+    <module name="EmptyBlock"/>
+    <!-- https://checkstyle.org/config_blocks.html#EmptyCatchBlock -->
+    <module name="EmptyCatchBlock">
+      <property name="exceptionVariableName" value="expected|ignore"/>
+    </module>
+    <!-- https://checkstyle.org/config_blocks.html#LeftCurly -->
+    <module name="LeftCurly"/>
+    <!-- https://checkstyle.org/config_blocks.html#NeedBraces -->
+    <module name="NeedBraces"/>
+    <!-- https://checkstyle.org/config_blocks.html#RightCurly -->
+    <module name="RightCurly"/>
+
+    <!-- ### CODING CONFIGURATION ### -->
+
+    <!-- https://checkstyle.org/config_coding.html#CovariantEquals -->
+    <module name="CovariantEquals"/>
+    <!-- https://checkstyle.org/config_coding.html#DeclarationOrder -->
+    <module name="DeclarationOrder"/>
+    <!-- https://checkstyle.org/config_coding.html#DefaultComesLast -->
+    <module name="DefaultComesLast"/>
+    <!-- https://checkstyle.org/config_coding.html#EmptyStatement -->
+    <module name="EmptyStatement"/>
+    <!-- https://checkstyle.org/config_coding.html#EqualsAvoidNull -->
+    <module name="EqualsAvoidNull"/>
+    <!-- https://checkstyle.org/config_coding.html#EqualsHashCode -->
+    <module name="EqualsHashCode"/>
+    <!-- https://checkstyle.org/config_coding.html#ExplicitInitialization -->
+    <module name="ExplicitInitialization"/>
+    <!-- https://checkstyle.org/config_coding.html#FallThrough -->
+    <module name="FallThrough"/>
+    <!-- https://checkstyle.org/config_coding.html#FinalLocalVariable -->
+    <module name="FinalLocalVariable">
+      <property name="severity" value="info"/>
+      <property name="validateEnhancedForLoopVariable" value="true"/>
+    </module>
+    <!-- https://checkstyle.org/config_coding.html#HiddenField -->
+    <module name="HiddenField">
+      <property name="severity" value="warning"/>
+      <property name="ignoreConstructorParameter" value="true"/>
+      <property name="ignoreSetter" value="true"/>
+      <property name="setterCanReturnItsClass" value="true"/>
+    </module>
+    <!-- https://checkstyle.org/config_coding.html#IllegalCatch -->
+    <module name="IllegalCatch"/>
+    <!--https://checkstyle.org/config_coding.html#IllegalInstantiation -->
+    <module name="IllegalInstantiation">
+      <property name="classes"
+                value="java.lang.Boolean,java.lang.Integer,java.lang.Long,java.util.GregorianCalendar,java.util.StringTokenizer,java.util.Vector,java.util.Stack,java.util.Hashtable,java.util.Locale.class"/>
+    </module>
+    <!--https://checkstyle.org/config_coding.html#IllegalThrows -->
+    <module name="IllegalThrows"/>
+    <!--https://checkstyle.org/config_coding.html#IllegalToken -->
+    <module name="IllegalToken"/>
+    <!--https://checkstyle.org/config_coding.html#IllegalType -->
+    <module name="IllegalType">
+      <property name="tokens" value="METHOD_DEF,PARAMETER_DEF,VARIABLE_DEF"/>
+    </module>
+    <!--https://checkstyle.org/config_coding.html#InnerAssignment -->
+    <module name="InnerAssignment"/>
+    <!--https://checkstyle.org/config_coding.html#MagicNumber -->
+    <module name="MagicNumber">
+      <property name="ignoreHashCodeMethod" value="true"/>
+      <property name="ignoreAnnotation" value="true"/>
+    </module>
+    <!--https://checkstyle.org/config_coding.html#MissingCtor -->
+    <module name="MissingCtor">
+      <property name="severity" value="warning"/>
+    </module>
+    <!--https://checkstyle.org/config_coding.html#ModifiedControlVariable -->
+    <module name="ModifiedControlVariable">
+      <property name="severity" value="info"/>
+    </module>
+    <!--https://checkstyle.org/config_coding.html#MissingSwitchDefault -->
+    <module name="MissingSwitchDefault"/>
+    <!--https://checkstyle.org/config_coding.html#MultipleStringLiterals -->
+    <module name="MultipleStringLiterals">
+      <property name="severity" value="info"/>
+    </module>
+    <!--https://checkstyle.org/config_coding.html#MultipleVariableDeclarations -->
+    <module name="MultipleVariableDeclarations"/>
+    <!--https://checkstyle.org/config_coding.html#NestedForDepth -->
+    <module name="NestedForDepth">
+      <property name="severity" value="warning"/>
+      <property name="max" value="2"/>
+    </module>
+    <!--https://checkstyle.org/config_coding.html#NestedIfDepth -->
+    <module name="NestedIfDepth">
+      <property name="severity" value="warning"/>
+      <property name="max" value="2"/>
+    </module>
+    <!--https://checkstyle.org/config_coding.html#NestedTryDepth -->
+    <module name="NestedTryDepth">
+      <property name="severity" value="warning"/>
+    </module>
+    <!--https://checkstyle.org/config_coding.html#NoClone -->
+    <module name="NoClone">
+      <property name="severity" value="warning"/>
+    </module>
+    <!--https://checkstyle.org/config_coding.html#NoFinalizer -->
+    <module name="NoFinalizer"/>
+    <!--https://checkstyle.org/config_coding.html#OneStatementPerLine -->
+    <module name="OneStatementPerLine"/>
+    <!--https://checkstyle.org/config_coding.html#OverloadMethodsDeclarationOrder -->
+    <module name="OverloadMethodsDeclarationOrder">
+      <property name="severity" value="warning"/>
+    </module>
+    <!--https://checkstyle.org/config_coding.html#PackageDeclaration -->
+    <module name="PackageDeclaration"/>
+    <!--https://checkstyle.org/config_coding.html#ParameterAssignment -->
+    <module name="ParameterAssignment"/>
+    <!--https://checkstyle.org/config_coding.html#RequireThis -->
+    <module name="RequireThis">
+      <property name="severity" value="info"/>
+    </module>
+    <!--https://checkstyle.org/config_coding.html#ReturnCount -->
+    <module name="ReturnCount">
+      <property name="severity" value="warning"/>
+      <property name="max" value="1"/>
+    </module>
+    <!--https://checkstyle.org/config_coding.html#SimplifyBooleanExpression -->
+    <module name="SimplifyBooleanExpression" />
+    <!--https://checkstyle.org/config_coding.html#SimplifyBooleanReturn -->
+    <module name="SimplifyBooleanReturn"/>
+    <!--https://checkstyle.org/config_coding.html#StringLiteralEquality -->
+    <module name="StringLiteralEquality"/>
+    <!--https://checkstyle.org/config_coding.html#SuperClone -->
+    <module name="SuperClone"/>
+    <!--https://checkstyle.org/config_coding.html#UnnecessaryParentheses -->
+    <module name="UnnecessaryParentheses">
+      <property name="severity" value="warning"/>
+    </module>
+    <!--https://checkstyle.org/config_coding.html#VariableDeclarationUsageDistance -->
+    <module name="VariableDeclarationUsageDistance">
+      <property name="severity" value="warning"/>
+    </module>
+
+    <!-- ### CLASS DESIGN CONFIGURATION ### -->
+
+    <!-- https://checkstyle.org/config_design.html#DesignForExtension -->
+    <module name="DesignForExtension">
+      <property name="severity" value="info"/>
+    </module>
+    <!-- https://checkstyle.org/config_design.html#FinalClass -->
+    <module name="FinalClass"/>
+    <!-- https://checkstyle.org/config_design.html#HideUtilityClassConstructor -->
+    <module name="HideUtilityClassConstructor"/>
+    <!-- https://checkstyle.org/config_design.html#InterfaceIsType -->
+    <module name="InterfaceIsType"/>
+    <!-- https://checkstyle.org/config_design.html#MutableException -->
+    <module name="MutableException"/>
+    <!-- https://checkstyle.org/config_design.html#ThrowsCount -->
+    <module name="ThrowsCount">
+      <property name="max" value="3"/>
+    </module>
+    <!-- https://checkstyle.org/config_design.html#VisibilityModifier -->
+    <module name="VisibilityModifier"/>
+
+    <!-- ### MISC CONFIGURATION ### -->
+
+    <!-- https://checkstyle.org/config_misc.html#ArrayTypeStyle -->
+    <module name="ArrayTypeStyle"/>
+    <!-- https://checkstyle.org/config_misc.html#Indentation -->
+    <module name="Indentation">
+      <property name="caseIndent" value="0"/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="error"/>
+    </module>
+    <!-- https://checkstyle.org/config_misc.html#TodoComment -->
+    <module name="TodoComment">
+      <property name="severity" value="warning"/>
+    </module>
+    <!-- https://checkstyle.org/config_misc.html#UpperEll -->
+    <module name="UpperEll"/>
+
+    <!-- ### METRICS CONFIGURATION ### -->
+
+    <!-- https://checkstyle.org/config_metrics.html#BooleanExpressionComplexity -->
+    <module name="BooleanExpressionComplexity">
+      <property name="max" value="4"/>
+    </module>
+    <!-- https://checkstyle.org/config_metrics.html#ClassFanOutComplexity -->
+    <module name="ClassFanOutComplexity">
+      <property name="id" value="ClassFanOutComplexity_Normal_Error"/>
+      <property name="max" value="20"/>
+    </module>
+    <!-- https://checkstyle.org/config_metrics.html#CyclomaticComplexity -->
+    <module name="CyclomaticComplexity">
+      <property name="id" value="CyclomaticComplexity_Error"/>
+      <property name="max" value="5"/>
+    </module>
+    <!-- https://checkstyle.org/config_metrics.html#NPathComplexity -->
+    <module name="NPathComplexity">
+      <property name="max" value="20"/>
+    </module>
+
+    <!-- ### ANNOTATION CONFIGURATION ### -->
+
+    <!-- https://checkstyle.org/config_annotation.html#AnnotationUseStyle -->
+    <module name="AnnotationUseStyle"/>
+    <!-- https://checkstyle.org/config_annotation.html#MissingDeprecated -->
+    <module name="MissingDeprecated"/>
+    <!-- https://checkstyle.org/config_annotation.html#MissingOverride -->
+    <module name="MissingOverride"/>
+    <!-- https://checkstyle.org/config_annotation.html#PackageAnnotation -->
+    <module name="PackageAnnotation"/>
+    <!-- https://checkstyle.org/config_annotation.html#SuppressWarnings -->
+    <module name="SuppressWarnings">
+      <property name="format" value="^^(&quot;unchecked&quot;)$"/>
     </module>
     <module name="SuppressionCommentFilter"/>
   </module>

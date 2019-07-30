@@ -14,8 +14,18 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
-public class HelloJava extends Application {
+/**
+ * Class for experimenting with JavaFX.
+ */
+public final class HelloJava extends Application {
 
+    private HelloJava() {
+    }
+
+    /**
+     * Stanard entry point of the application.
+     * @param args parameter arguments for the application when called from the command line.
+     */
     public static void main(String[] args) {
         launch(args);
     }
@@ -24,49 +34,51 @@ public class HelloJava extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Aether 0X");
 
-        Group root = new Group();
-        Pane pane = new Pane(root);
+        final Group root = new Group();
+        final Pane pane = new Pane(root);
 
-        TestPlanet testPlanet = new TestPlanet();
-        final Node node = testPlanet.asNode();
+        final Node node = new TestPlanet().asNode();
 
         pane.getChildren().add(node);
-        Scene scene = new Scene(pane);
-        final MapDragHandler dragHandler = new MapDragHandler();
-        scene.setOnMouseDragged(mouseDragEvent -> {
-            dragHandler.drag(mouseDragEvent, node);
-        });
-        scene.setOnMouseReleased(mouseEvent -> {
-            if(!mouseEvent.isDragDetect()) {
-                dragHandler.stop();
-            }
-        });
-
-        final MapScrollHandler scrollHandler = new MapScrollHandler();
-
-        scene.setOnScroll(scrollEvent -> {
-            scrollHandler.scroll(scrollEvent, node);
-        });
+        final Scene scene = new Scene(pane);
+        registerHandlers(node, scene);
         scene.setUserAgentStylesheet("system.css");
         pane.getStyleClass().add("system");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    private static class TestPlanet {
-        private double startingAngle = 0.0;
-        private double anglePerDay = 1.0;
-        private double currentTime = 90;
+    private void registerHandlers(Node node, Scene scene) {
+        final MapDragHandler dragHandler = new MapDragHandler();
+        scene.setOnMouseDragged(mouseDragEvent -> {
+            dragHandler.drag(mouseDragEvent, node);
+        });
+        scene.setOnMouseReleased(mouseEvent -> {
+            if (!mouseEvent.isDragDetect()) {
+                dragHandler.stop();
+            }
+        });
+        final MapScrollHandler scrollHandler = new MapScrollHandler();
+        scene.setOnScroll(scrollEvent -> {
+            scrollHandler.scroll(scrollEvent, node);
+        });
+    }
 
-        private Point2D centerOfSystem = new Point2D(80,80);
-        private long orbitRadius = 60;
-        private long planetRadius = 5;
-        private String planetName = "Earth";
+    private static final class TestPlanet {
+        private static final double STARTING_ANGLE = 0;
+        private static final double CENTER_X = 80;
+        private static final double CENTER_Y = 80;
+        private static final long ORBIT_RADIUS = 60;
+        private static final long PLANET_RADIUS = 5;
+        private Point2D centerOfSystem = new Point2D(CENTER_X, CENTER_Y);
 
         private Rotate currentRotation;
 
+        private TestPlanet() {
+        }
+
         Circle orbit() {
-            Circle orbit = new Circle(orbitRadius);
+            final Circle orbit = new Circle(ORBIT_RADIUS);
             orbit.setCenterX(centerOfSystem.getX());
             orbit.setCenterY(centerOfSystem.getY());
             orbit.getStyleClass().add("orbit");
@@ -74,8 +86,8 @@ public class HelloJava extends Application {
         }
 
         Circle planet() {
-            Circle planet = new Circle(planetRadius);
-            planet.setCenterX(centerOfSystem.getX() + orbitRadius);
+            final Circle planet = new Circle(PLANET_RADIUS);
+            planet.setCenterX(centerOfSystem.getX() + ORBIT_RADIUS);
             planet.setCenterY(centerOfSystem.getY());
             planet.getStyleClass().add("planet");
 
@@ -84,31 +96,38 @@ public class HelloJava extends Application {
             return planet;
         }
 
-
-
         Node name(Circle planet) {
-            Text planetName = new Text(this.planetName);
+            final Text planetName = new Text("Earth");
 
-            final Point2D center = planet.localToParent(planet.getCenterX(), planet.getCenterY());
-
-            planetName.setX(center.getX() - this.planetName.length() * 2);
-            planetName.setY(center.getY() + planetRadius * 4);
-
+            final Point2D center =
+                planet.localToParent(
+                    planet.getCenterX(),
+                    planet.getCenterY()
+                );
+            planetName.setX(center.getX() - planetName.getText().length() * 2);
+            planetName.setY(center.getY() + PLANET_RADIUS * 2 * 2);
             planetName.getStyleClass().add("planet-name");
 
             return planetName;
         }
 
         Rotate rotation() {
-            double angle = startingAngle + anglePerDay * currentTime;
-            if(currentRotation == null || currentRotation.getAngle() != angle) {
-                currentRotation = new Rotate(-angle, centerOfSystem.getX(), centerOfSystem.getY());
+            final double anglePerDay = 1.0;
+            final double currentTime = 90;
+            final double angle = STARTING_ANGLE + anglePerDay * currentTime;
+            if (currentRotation == null
+                || currentRotation.getAngle() != angle) {
+                currentRotation = new Rotate(
+                    -angle,
+                    centerOfSystem.getX(),
+                    centerOfSystem.getY()
+                );
             }
             return currentRotation;
         }
 
         Node asNode() {
-            Group celestial = new Group();
+            final Group celestial = new Group();
             final var orbit = this.orbit();
             final var planet = this.planet();
             final var name = this.name(planet);
