@@ -3,7 +3,7 @@ package com.aether.domain.celestials;
 /**
  * An enumeration of the general types of objects in a solar system.
  */
-public enum Celestials {
+public enum CelestialType {
     SUN,
     PLANET,
     MOON,
