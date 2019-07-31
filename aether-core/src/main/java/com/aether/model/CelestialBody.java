@@ -62,4 +62,12 @@ public interface CelestialBody {
      * @return the celestial bodies orbiting this body.
      */
     CelestialBody[] getOrbitingBodies();
+
+    /**
+     * Gets the average radius of the orbit in AUs.
+     * @return the sum of the apoapsis and periapsis divided by 2.
+     */
+    default double getOrbitRadius() {
+        return (getApoapsis() + getPeriapsis()) / 2;
+    }
 }

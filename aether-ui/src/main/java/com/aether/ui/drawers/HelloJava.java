@@ -1,5 +1,7 @@
 package com.aether.ui.drawers;
 
+import com.aether.model.CelestialBody;
+import com.aether.ui.UiPlanet;
 import com.aether.ui.eventhandlers.MapDragHandler;
 import com.aether.ui.eventhandlers.MapScrollHandler;
 
@@ -11,17 +13,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
 /**
  * Class for experimenting with JavaFX.
  */
 public final class HelloJava extends Application {
-
-    private HelloJava() {
-    }
-
     /**
      * Stanard entry point of the application.
      * @param args parameter arguments for the application when called from the command line.
@@ -37,7 +34,7 @@ public final class HelloJava extends Application {
         final Group root = new Group();
         final Pane pane = new Pane(root);
 
-        final Node node = new TestPlanet().asNode();
+        final Node node = asNode(new TestPlanet());
 
         pane.getChildren().add(node);
         final Scene scene = new Scene(pane);
@@ -46,6 +43,60 @@ public final class HelloJava extends Application {
         pane.getStyleClass().add("system");
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    Circle orbit(UiPlanet body, Point2D center) {
+        final var orbitRadius = body.getOrbitRadius();
+        final var orbit = new Circle(orbitRadius);
+        orbit.setCenterY(center.getY());
+        orbit.setCenterX(center.getX());
+        orbit.getStyleClass().add("orbit");
+        return orbit;
+    }
+
+    Circle planet(UiPlanet body, Point2D center) {
+        final Circle planet = new Circle(body.getDiameter());
+        planet.setCenterX(center.getX() + body.getOrbitRadius());
+        planet.setCenterY(center.getY());
+        planet.getStyleClass().add("planet");
+        return planet;
+    }
+
+    Node name(UiPlanet body, Circle planet) {
+        final Text planetName = new Text("Earth");
+
+        final Point2D center =
+            planet.localToParent(
+                planet.getCenterX(),
+                planet.getCenterY()
+            );
+        planetName.setX(center.getX() - planetName.getText().length() * 2);
+        planetName.setY(center.getY() + body.getDiameter() * 2 * 2);
+        planetName.getStyleClass().add("planet-name");
+
+        return planetName;
+    }
+
+    void rotate(UiPlanet body, Circle planet, Point2D center) {
+        final double currentTime = 90;
+        body.rotate(currentTime, center);
+        planet.getTransforms().add(body.getCurrentRotation());
+    }
+
+    Node asNode(CelestialBody body) {
+        final Point2D center = new Point2D(80, 80);
+        final UiPlanet planetBody = new UiPlanet(body, 0);
+        final Group celestial = new Group();
+        final var orbit = this.orbit(planetBody, center);
+        final var planet = this.planet(planetBody, center);
+        rotate(planetBody, planet, center);
+        final var name = this.name(planetBody, planet);
+        celestial.getChildren().addAll(
+            orbit,
+            planet,
+            name
+        );
+        return celestial;
     }
 
     private void registerHandlers(Node node, Scene scene) {
@@ -64,80 +115,40 @@ public final class HelloJava extends Application {
         });
     }
 
-    private static final class TestPlanet {
+    private static final class TestPlanet implements CelestialBody {
         private static final double STARTING_ANGLE = 0;
-        private static final double CENTER_X = 80;
-        private static final double CENTER_Y = 80;
         private static final long ORBIT_RADIUS = 60;
         private static final long PLANET_RADIUS = 5;
-        private Point2D centerOfSystem = new Point2D(CENTER_X, CENTER_Y);
-
-        private Rotate currentRotation;
 
         private TestPlanet() {
         }
 
-        Circle orbit() {
-            final Circle orbit = new Circle(ORBIT_RADIUS);
-            orbit.setCenterX(centerOfSystem.getX());
-            orbit.setCenterY(centerOfSystem.getY());
-            orbit.getStyleClass().add("orbit");
-            return orbit;
+        @Override public double getMass() {
+            return 0;
         }
 
-        Circle planet() {
-            final Circle planet = new Circle(PLANET_RADIUS);
-            planet.setCenterX(centerOfSystem.getX() + ORBIT_RADIUS);
-            planet.setCenterY(centerOfSystem.getY());
-            planet.getStyleClass().add("planet");
-
-            planet.getTransforms().add(rotation());
-
-            return planet;
+        @Override public double getDiameter() {
+            return PLANET_RADIUS;
         }
 
-        Node name(Circle planet) {
-            final Text planetName = new Text("Earth");
-
-            final Point2D center =
-                planet.localToParent(
-                    planet.getCenterX(),
-                    planet.getCenterY()
-                );
-            planetName.setX(center.getX() - planetName.getText().length() * 2);
-            planetName.setY(center.getY() + PLANET_RADIUS * 2 * 2);
-            planetName.getStyleClass().add("planet-name");
-
-            return planetName;
+        @Override public double getRotationPeriod() {
+            return 0;
         }
 
-        Rotate rotation() {
-            final double anglePerDay = 1.0;
-            final double currentTime = 90;
-            final double angle = STARTING_ANGLE + anglePerDay * currentTime;
-            if (currentRotation == null
-                || currentRotation.getAngle() != angle) {
-                currentRotation = new Rotate(
-                    -angle,
-                    centerOfSystem.getX(),
-                    centerOfSystem.getY()
-                );
-            }
-            return currentRotation;
+        @Override public double getOrbitPeriod() {
+            return 365.0;
         }
 
-        Node asNode() {
-            final Group celestial = new Group();
-            final var orbit = this.orbit();
-            final var planet = this.planet();
-            final var name = this.name(planet);
-            celestial.getChildren().addAll(
-                orbit,
-                planet,
-                name
-            );
+        @Override public double getApoapsis() {
+            return ORBIT_RADIUS;
+        }
 
-            return celestial;
+        @Override public double getPeriapsis() {
+            return ORBIT_RADIUS;
+        }
+
+        @Override public CelestialBody[] getOrbitingBodies() {
+            return new CelestialBody[0];
         }
     }
 }
