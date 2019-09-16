@@ -3,7 +3,7 @@ package com.aether.ui.drawers.temp;
 import com.aether.model.celestials.CelestialBody;
 
 /** THE SUN, THE SUN, THE SUN, THE S... */
-public class Sun implements CelestialBody {
+public final class Sun implements CelestialBody {
     private static final double ORBIT_PERIAPSIS = 0;
     private static final double ORBIT_APOAPSIS = 0;
     private static final long PLANET_RADIUS = 5L;

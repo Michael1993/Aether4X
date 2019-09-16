@@ -14,5 +14,5 @@ public interface CostAssociated {
      * Gets the associated cost of trans-newtonian materials.
      * @return the cost associated with this.
      */
-    TransNewtonianMaterial getTransNewtonianMaterialCost();
+    TransNewtonianMaterial[] getTransNewtonianMaterialCost();
 }

@@ -1,13 +1,13 @@
 package com.aether.ui.drawers;
 
 import com.aether.model.celestials.CelestialBody;
+import com.aether.ui.drawers.temp.Earth;
+import com.aether.ui.drawers.temp.Jupiter;
+import com.aether.ui.drawers.temp.Mars;
 import com.aether.ui.drawers.temp.Mercury;
 import com.aether.ui.drawers.temp.Neptune;
 import com.aether.ui.drawers.temp.Saturn;
 import com.aether.ui.drawers.temp.Sun;
-import com.aether.ui.drawers.temp.Earth;
-import com.aether.ui.drawers.temp.Jupiter;
-import com.aether.ui.drawers.temp.Mars;
 import com.aether.ui.drawers.temp.Uranus;
 import com.aether.ui.drawers.temp.Venus;
 import com.aether.ui.eventhandlers.MapDragHandler;
@@ -108,7 +108,7 @@ public final class HelloJava extends Application {
             planet.getCenterX(),
             planet.getCenterY()
         );
-        planetName.setX(center.getX() - planetName.getText().length() * planetName.getFont().getSize() / 4);
+        planetName.setX(center.getX() - planetName.getText().length() * planetName.getFont().getSize() / 2 / 2);
         planetName.setY(center.getY() + body.getRadius() + planetName.getFont().getSize());
         planetName.getStyleClass().add("planet-name");
 
