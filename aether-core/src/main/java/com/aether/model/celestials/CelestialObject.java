@@ -1,4 +1,4 @@
-package com.aether.model;
+package com.aether.model.celestials;
 
 /**
  * Represents a celestial object.
@@ -12,6 +12,12 @@ package com.aether.model;
  *  - A galaxy
  */
 public interface CelestialObject {
+    /**
+     * Gets the name of this celestial object. E.g.: Eagle Nebula.
+     * @return the name of this object.
+     */
+    String getName();
+
     /**
      * Gets the other celestial objects this object holds.
      * Note that this should NOT return celestial bodies contained in a substructure,

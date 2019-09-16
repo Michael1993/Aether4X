@@ -1,12 +1,12 @@
-package com.aether.ui;
+package com.aether.ui.views;
 
 /**
  * Scaling the astronomical units to computer screen pixels.
  */
-public enum Scales {
+enum Scales {
     MASS_SCALE(1.0),
-    KM_TO_PIXEL(1.0),
-    AU_TO_PIXEL(1.0);
+    KM_TO_PIXEL(1.0 / 1000.0),
+    AU_TO_PIXEL(50.0);
     private double scale;
 
     Scales(double scale) {

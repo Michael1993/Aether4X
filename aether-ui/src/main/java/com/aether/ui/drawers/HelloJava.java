@@ -1,9 +1,19 @@
 package com.aether.ui.drawers;
 
-import com.aether.model.CelestialBody;
-import com.aether.ui.UiPlanet;
+import com.aether.model.celestials.CelestialBody;
+import com.aether.ui.drawers.temp.Mercury;
+import com.aether.ui.drawers.temp.Neptune;
+import com.aether.ui.drawers.temp.Saturn;
+import com.aether.ui.drawers.temp.Sun;
+import com.aether.ui.drawers.temp.Earth;
+import com.aether.ui.drawers.temp.Jupiter;
+import com.aether.ui.drawers.temp.Mars;
+import com.aether.ui.drawers.temp.Uranus;
+import com.aether.ui.drawers.temp.Venus;
 import com.aether.ui.eventhandlers.MapDragHandler;
-import com.aether.ui.eventhandlers.MapScrollHandler;
+import com.aether.ui.eventhandlers.MapZoomHandler;
+import com.aether.ui.transformers.CelestialBodyTransformer;
+import com.aether.ui.views.CelestialBodyView;
 
 import javafx.application.Application;
 import javafx.geometry.Point2D;
@@ -20,7 +30,7 @@ import javafx.stage.Stage;
  */
 public final class HelloJava extends Application {
     /**
-     * Stanard entry point of the application.
+     * Standard entry point of the application.
      * @param args parameter arguments for the application when called from the command line.
      */
     public static void main(String[] args) {
@@ -31,21 +41,50 @@ public final class HelloJava extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Aether 0X");
 
-        final Group root = new Group();
-        final Pane pane = new Pane(root);
+        final Pane pane = new Pane();
+        final Scene scene = new Scene(pane, 800, 800);
+        final Point2D center = pane.localToScene(scene.getWidth() / 2, scene.getHeight() / 2);
+        final Node mercury = asNode(new Mercury(), center);
+        final Node venus = asNode(new Venus(), center);
+        final Node earth = asNode(new Earth(), center);
+        final Node mars = asNode(new Mars(), center);
+        final Node jupiter = asNode(new Jupiter(), center);
+        final Node saturn = asNode(new Saturn(), center);
+        final Node uranus = asNode(new Uranus(), center);
+        final Node neptune = asNode(new Neptune(), center);
 
-        final Node node = asNode(new TestPlanet());
+        final Node sun = asSunNode(new Sun(), center);
 
-        pane.getChildren().add(node);
-        final Scene scene = new Scene(pane);
-        registerHandlers(node, scene);
+        final Group system = new Group();
+
+        system.getChildren().addAll(
+            sun,
+            mercury,
+            venus,
+            earth,
+            mars,
+            jupiter,
+            saturn,
+            uranus,
+            neptune
+        );
+        pane.getChildren().add(system);
+        registerHandlers(system, scene);
         scene.setUserAgentStylesheet("system.css");
         pane.getStyleClass().add("system");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    Circle orbit(UiPlanet body, Point2D center) {
+    private Node asSunNode(Sun sun, Point2D center) {
+        final Circle planet = new Circle(sun.getRadius());
+        planet.setCenterX(center.getX());
+        planet.setCenterY(center.getY());
+        planet.getStyleClass().add("sun");
+        return planet;
+    }
+
+    Circle orbit(CelestialBodyView body, Point2D center) {
         final var orbitRadius = body.getOrbitRadius();
         final var orbit = new Circle(orbitRadius);
         orbit.setCenterY(center.getY());
@@ -54,38 +93,36 @@ public final class HelloJava extends Application {
         return orbit;
     }
 
-    Circle planet(UiPlanet body, Point2D center) {
-        final Circle planet = new Circle(body.getDiameter());
+    Circle planet(CelestialBodyView body, Point2D center) {
+        final Circle planet = new Circle(body.getRadius());
         planet.setCenterX(center.getX() + body.getOrbitRadius());
         planet.setCenterY(center.getY());
         planet.getStyleClass().add("planet");
         return planet;
     }
 
-    Node name(UiPlanet body, Circle planet) {
-        final Text planetName = new Text("Earth");
+    Node name(CelestialBodyView body, Circle planet) {
+        final Text planetName = new Text(body.getName());
 
-        final Point2D center =
-            planet.localToParent(
-                planet.getCenterX(),
-                planet.getCenterY()
-            );
-        planetName.setX(center.getX() - planetName.getText().length() * 2);
-        planetName.setY(center.getY() + body.getDiameter() * 2 * 2);
+        final Point2D center = planet.localToParent(
+            planet.getCenterX(),
+            planet.getCenterY()
+        );
+        planetName.setX(center.getX() - planetName.getText().length() * planetName.getFont().getSize() / 4);
+        planetName.setY(center.getY() + body.getRadius() + planetName.getFont().getSize());
         planetName.getStyleClass().add("planet-name");
 
         return planetName;
     }
 
-    void rotate(UiPlanet body, Circle planet, Point2D center) {
+    void rotate(CelestialBodyView body, Circle planet, Point2D center) {
         final double currentTime = 90;
         body.rotate(currentTime, center);
         planet.getTransforms().add(body.getCurrentRotation());
     }
 
-    Node asNode(CelestialBody body) {
-        final Point2D center = new Point2D(80, 80);
-        final UiPlanet planetBody = new UiPlanet(body, 0);
+    Node asNode(CelestialBody body, Point2D center) {
+        final CelestialBodyView planetBody = CelestialBodyTransformer.transform(body);
         final Group celestial = new Group();
         final var orbit = this.orbit(planetBody, center);
         final var planet = this.planet(planetBody, center);
@@ -100,55 +137,11 @@ public final class HelloJava extends Application {
     }
 
     private void registerHandlers(Node node, Scene scene) {
-        final MapDragHandler dragHandler = new MapDragHandler();
-        scene.setOnMouseDragged(mouseDragEvent -> {
-            dragHandler.drag(mouseDragEvent, node);
-        });
-        scene.setOnMouseReleased(mouseEvent -> {
-            if (!mouseEvent.isDragDetect()) {
-                dragHandler.stop();
-            }
-        });
-        final MapScrollHandler scrollHandler = new MapScrollHandler();
-        scene.setOnScroll(scrollEvent -> {
-            scrollHandler.scroll(scrollEvent, node);
-        });
-    }
-
-    private static final class TestPlanet implements CelestialBody {
-        private static final double STARTING_ANGLE = 0;
-        private static final long ORBIT_RADIUS = 60;
-        private static final long PLANET_RADIUS = 5;
-
-        private TestPlanet() {
-        }
-
-        @Override public double getMass() {
-            return 0;
-        }
-
-        @Override public double getDiameter() {
-            return PLANET_RADIUS;
-        }
-
-        @Override public double getRotationPeriod() {
-            return 0;
-        }
-
-        @Override public double getOrbitPeriod() {
-            return 365.0;
-        }
-
-        @Override public double getApoapsis() {
-            return ORBIT_RADIUS;
-        }
-
-        @Override public double getPeriapsis() {
-            return ORBIT_RADIUS;
-        }
-
-        @Override public CelestialBody[] getOrbitingBodies() {
-            return new CelestialBody[0];
-        }
+        final MapDragHandler dragHandler = new MapDragHandler(node);
+        scene.setOnMouseDragged(dragHandler::drag);
+        scene.setOnMouseReleased(dragHandler::stopAtDragEnd);
+        final MapZoomHandler zoomHandler = new MapZoomHandler(node);
+        scene.setOnScroll(zoomHandler::scroll);
+        scene.setOnKeyPressed(zoomHandler::resetOnControlZero);
     }
 }

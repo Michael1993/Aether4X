@@ -2,8 +2,18 @@
     -fx-background-color: rgb(0,0,64);
 }
 
+.scene {
+    -fx-background-color: rgb(0,0,64);
+}
+
 .planet {
     -fx-fill: blue;
+    -fx-stroke: black;
+    -fx-stroke-width: 0.2;
+}
+
+.sun {
+    -fx-fill: lightyellow;
     -fx-stroke: black;
     -fx-stroke-width: 0.2;
 }

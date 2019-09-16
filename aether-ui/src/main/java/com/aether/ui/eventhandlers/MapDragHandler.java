@@ -11,17 +11,26 @@ import javafx.scene.transform.Transform;
 public final class MapDragHandler {
     private Point2D start;
 
+    private final Node map;
+
+    /**
+     * Creates a MapDragHandler which acts on the specified Node.
+     * @param map the map we want to drag.
+     */
+    public MapDragHandler(Node map) {
+        this.map = map;
+    }
+
     /**
      * This method handles the actual dragging of the map.
      * @param event the mouse event that contains the data about the dragging.
-     * @param toDrag the map we want to drag around.
      */
-    public void drag(MouseEvent event, Node toDrag) {
+    public void drag(MouseEvent event) {
         if (start != null) {
-            toDrag.getTransforms().add(
+            map.getTransforms().add(
                 Transform.translate(
-                    event.getSceneX() - start.getX(),
-                    event.getSceneY() - start.getY()
+                    (event.getSceneX() - start.getX()) / map.getScaleX(),
+                    (event.getSceneY() - start.getY()) / map.getScaleY()
                 )
             );
         }
@@ -30,8 +39,11 @@ public final class MapDragHandler {
 
     /**
      * Called when the dragging ends.
+     * @param event the event we check for dragging end.
      */
-    public void stop() {
-        start = null;
+    public void stopAtDragEnd(MouseEvent event) {
+        if (!event.isDragDetect()) {
+            start = null;
+        }
     }
 }

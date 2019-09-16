@@ -185,6 +185,7 @@
     <!-- Lines should be no longer than 80 characters.       -->
     <!-- https://checkstyle.org/config_sizes.html#LineLength -->
     <module name="LineLength">
+      <property name="max" value="120"/>
       <property name="ignorePattern" value="[*]+[ A-Za-z]*"/>
     </module>
     <!-- Methods should be relatively short, if possible.      -->

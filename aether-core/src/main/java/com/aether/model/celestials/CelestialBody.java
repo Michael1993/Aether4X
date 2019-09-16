@@ -1,4 +1,4 @@
-package com.aether.model;
+package com.aether.model.celestials;
 
 /**
  * Represents a celestial body.
@@ -13,17 +13,23 @@ package com.aether.model;
  */
 public interface CelestialBody {
     /**
-     * Gets the approximate mass of the body in peta-kg (or quadrillion kg, 1e15 kg).
+     * Gets the name of the body. E.g.: Mars, Earth, Alpha Centauri-II.
+     * @return the name of this body.
+     */
+    String getName();
+
+    /**
+     * Gets the approximate mass of the body in kilograms.
      * @return the mass of the current body.
      */
     double getMass();
 
     /**
-     * Gets the approximate diameter of the body in km.
-     * If the body is rather uneven, it should return the average diameter.
-     * @return the diameter of the current body.
+     * Gets the approximate radius of the body in km.
+     * If the body is rather uneven (e.g.: an asteroid), it should return the average radius.
+     * @return the radius of the current body.
      */
-    double getDiameter();
+    double getRadius();
 
     /**
      * Gets the approximate rotation period of the body in hours.
