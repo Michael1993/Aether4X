@@ -84,7 +84,7 @@ public final class HelloJava extends Application {
         return planet;
     }
 
-    Circle orbit(CelestialBodyView body, Point2D center) {
+    private Circle orbit(CelestialBodyView body, Point2D center) {
         final var orbitRadius = body.getOrbitRadius();
         final var orbit = new Circle(orbitRadius);
         orbit.setCenterY(center.getY());
@@ -93,7 +93,7 @@ public final class HelloJava extends Application {
         return orbit;
     }
 
-    Circle planet(CelestialBodyView body, Point2D center) {
+    private Circle planet(CelestialBodyView body, Point2D center) {
         final Circle planet = new Circle(body.getRadius());
         planet.setCenterX(center.getX() + body.getOrbitRadius());
         planet.setCenterY(center.getY());
@@ -101,7 +101,7 @@ public final class HelloJava extends Application {
         return planet;
     }
 
-    Node name(CelestialBodyView body, Circle planet) {
+    private Node name(CelestialBodyView body, Circle planet) {
         final Text planetName = new Text(body.getName());
 
         final Point2D center = planet.localToParent(
@@ -115,13 +115,13 @@ public final class HelloJava extends Application {
         return planetName;
     }
 
-    void rotate(CelestialBodyView body, Circle planet, Point2D center) {
+    private void rotate(CelestialBodyView body, Circle planet, Point2D center) {
         final double currentTime = 90;
         body.rotate(currentTime, center);
         planet.getTransforms().add(body.getCurrentRotation());
     }
 
-    Node asNode(CelestialBody body, Point2D center) {
+    private Node asNode(CelestialBody body, Point2D center) {
         final CelestialBodyView planetBody = CelestialBodyTransformer.transform(body);
         final Group celestial = new Group();
         final var orbit = this.orbit(planetBody, center);
