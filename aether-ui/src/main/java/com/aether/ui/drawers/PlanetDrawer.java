@@ -1,20 +1,20 @@
 package com.aether.ui.drawers;
 
 import com.aether.model.celestials.CelestialBody;
+import com.aether.ui.drawers.temp.Sun;
 import com.aether.ui.transformers.CelestialBodyTransformer;
 import com.aether.ui.views.CelestialBodyView;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 /**
  * Draws a System to a supplied JavaFX Parent.
  */
-public class PlanetDrawer implements Drawer<Parent, CelestialBodyView> {
+public class PlanetDrawer implements Drawer<Group, CelestialBody> {
 
     private final Point2D center;
 
@@ -26,11 +26,11 @@ public class PlanetDrawer implements Drawer<Parent, CelestialBodyView> {
         this.center = center;
     }
 
-    @Override public void draw(Parent context, CelestialBodyView body) {
-        context.getChildrenUnmodifiable().add(asNode(body));
+    @Override public void draw(Group context, CelestialBody body) {
+        context.getChildren().add(asNode(body));
     }
 
-    @Override public void update(Parent context, CelestialBodyView body) {
+    @Override public void update(Group context, CelestialBody body) {
     }
 
     private Circle orbit(CelestialBodyView body) {
@@ -51,7 +51,7 @@ public class PlanetDrawer implements Drawer<Parent, CelestialBodyView> {
     }
 
     private Node name(CelestialBodyView body, Circle planet) {
-        final Text planetName = new Text("Earth");
+        final Text planetName = new Text(body.getName());
 
         final Point2D planetCenter = planet.localToParent(
             planet.getCenterX(),
@@ -71,6 +71,9 @@ public class PlanetDrawer implements Drawer<Parent, CelestialBodyView> {
     }
 
     private Node asNode(CelestialBody body) {
+        if (body.getApoapsis() == 0 && body.getOrbitRadius() == 0) {
+            return asSun(body);
+        }
         final CelestialBodyView planetBody = CelestialBodyTransformer.transform(body);
         final Group celestial = new Group();
         final var orbit = this.orbit(planetBody);
@@ -83,5 +86,13 @@ public class PlanetDrawer implements Drawer<Parent, CelestialBodyView> {
             name
         );
         return celestial;
+    }
+
+    private Node asSun(CelestialBody sun) {
+        final Circle planet = new Circle(sun.getRadius());
+        planet.setCenterX(center.getX());
+        planet.setCenterY(center.getY());
+        planet.getStyleClass().add("sun");
+        return planet;
     }
 }
