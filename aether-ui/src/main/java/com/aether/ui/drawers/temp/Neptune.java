@@ -16,6 +16,10 @@ public final class Neptune implements CelestialBody {
     public Neptune() {
     }
 
+    @Override public String getType() {
+        return "Planet";
+    }
+
     @Override public String getName() {
         return NAME;
     }

@@ -16,6 +16,10 @@ public final class Jupiter implements CelestialBody {
     public Jupiter() {
     }
 
+    @Override public String getType() {
+        return "Planet";
+    }
+
     @Override public String getName() {
         return NAME;
     }

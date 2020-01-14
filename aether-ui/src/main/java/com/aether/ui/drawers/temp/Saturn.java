@@ -16,6 +16,10 @@ public final class Saturn implements CelestialBody {
     public Saturn() {
     }
 
+    @Override public String getType() {
+        return "Planet";
+    }
+
     @Override public String getName() {
         return NAME;
     }

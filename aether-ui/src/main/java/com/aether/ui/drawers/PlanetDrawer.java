@@ -96,11 +96,11 @@ public class PlanetDrawer implements Drawer<Group, CelestialBody> {
         return celestial;
     }
 
-    private Node asSun(CelestialBody sun) {
-        final Circle planet = new Circle(sun.getRadius());
-        planet.setCenterX(center.getX());
-        planet.setCenterY(center.getY());
-        planet.getStyleClass().add("sun");
-        return planet;
+    private Node asSun(CelestialBody body) {
+        final Circle sun = new Circle(body.getRadius());
+        sun.setCenterX(center.getX());
+        sun.setCenterY(center.getY());
+        sun.getStyleClass().add("sun");
+        return sun;
     }
 }

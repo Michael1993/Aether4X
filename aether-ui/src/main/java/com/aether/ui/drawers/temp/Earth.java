@@ -20,6 +20,10 @@ public final class Earth implements CelestialBody {
         return NAME;
     }
 
+    @Override public String getType() {
+        return "Planet";
+    }
+
     @Override public double getMass() {
         return 0;
     }

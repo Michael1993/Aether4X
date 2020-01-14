@@ -18,6 +18,10 @@ public final class Mars implements CelestialBody {
     public Mars() {
     }
 
+    @Override public String getType() {
+        return "Planet";
+    }
+
     @Override public String getName() {
         return NAME;
     }

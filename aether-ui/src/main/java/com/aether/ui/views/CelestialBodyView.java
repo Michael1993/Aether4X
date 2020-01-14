@@ -18,7 +18,7 @@ public final class CelestialBodyView implements CelestialBody {
     /**
      * Creates a new Proxy for the specified {@code CelestialBody}.
      * The starting rotation is 0.
-     * @param body
+     * @param body the body you want to proxy.
      */
     public CelestialBodyView(CelestialBody body) {
         this.body = body;
@@ -41,6 +41,11 @@ public final class CelestialBodyView implements CelestialBody {
     @Override
     public String getName() {
         return body.getName();
+    }
+
+    @Override
+    public String getType() {
+        return body.getType();
     }
 
     @Override

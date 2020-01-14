@@ -16,6 +16,10 @@ public final class Venus implements CelestialBody {
     public Venus() {
     }
 
+    @Override public String getType() {
+        return "Planet";
+    }
+
     @Override public String getName() {
         return NAME;
     }

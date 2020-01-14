@@ -16,6 +16,10 @@ public final class Uranus implements CelestialBody {
     public Uranus() {
     }
 
+    @Override public String getType() {
+        return "Planet";
+    }
+
     @Override public String getName() {
         return NAME;
     }

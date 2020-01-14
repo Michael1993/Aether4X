@@ -14,6 +14,10 @@ public final class Sun implements CelestialBody {
     public Sun() {
     }
 
+    @Override public String getType() {
+        return "Sun";
+    }
+
     @Override public String getName() {
         return NAME;
     }
