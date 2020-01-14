@@ -1,7 +1,6 @@
 package com.aether.ui.drawers;
 
 import com.aether.model.celestials.CelestialBody;
-import com.aether.ui.drawers.temp.Sun;
 import com.aether.ui.transformers.CelestialBodyTransformer;
 import com.aether.ui.views.CelestialBodyView;
 
@@ -26,11 +25,13 @@ public class PlanetDrawer implements Drawer<Group, CelestialBody> {
         this.center = center;
     }
 
-    @Override public void draw(Group context, CelestialBody body) {
+    @Override
+    public final void draw(Group context, CelestialBody body) {
         context.getChildren().add(asNode(body));
     }
 
-    @Override public void update(Group context, CelestialBody body) {
+    @Override
+    public final void update(Group context, CelestialBody body) {
     }
 
     private Circle orbit(CelestialBodyView body) {
@@ -71,9 +72,16 @@ public class PlanetDrawer implements Drawer<Group, CelestialBody> {
     }
 
     private Node asNode(CelestialBody body) {
+        final Node node;
         if (body.getApoapsis() == 0 && body.getOrbitRadius() == 0) {
-            return asSun(body);
+            node = asSun(body);
+        } else {
+            node = asCelestial(body);
         }
+        return node;
+    }
+
+    private Node asCelestial(CelestialBody body) {
         final CelestialBodyView planetBody = CelestialBodyTransformer.transform(body);
         final Group celestial = new Group();
         final var orbit = this.orbit(planetBody);
