@@ -10,7 +10,7 @@
         <version>0.1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>aether-core</artifactId>
+    <artifactId>aether-api</artifactId>
     <version>0.1.0-SNAPSHOT</version>
 
     <dependencies>

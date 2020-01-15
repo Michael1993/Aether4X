@@ -1,5 +1,5 @@
 module aether.ui {
-    requires aether.core;
+    requires aether.api;
     requires javafx.graphics;
 
     exports com.aether.ui.drawers;

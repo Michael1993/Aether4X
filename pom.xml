@@ -51,7 +51,7 @@
 
   <modules>
     <module>aether-ui</module>
-    <module>aether-core</module>
+    <module>aether-api</module>
     <module>aether-engine</module>
     <module>aether-domain</module>
   </modules>
