@@ -29,7 +29,7 @@ public final class HelloJava extends Application {
      * @param args parameter arguments for the application when called from the command line.
      */
     public static void main(String[] args) {
-        launch(args);
+        launch();
     }
 
     @Override
@@ -39,9 +39,24 @@ public final class HelloJava extends Application {
         final Pane pane = new Pane();
         final Scene scene = new Scene(pane, 800, 800);
         final Point2D center = pane.localToScene(scene.getWidth() / 2, scene.getHeight() / 2);
-        final PlanetDrawer drawer = new PlanetDrawer(center);
 
+        final var system = setUpSystem(pane, center);
+        registerHandlers(system, scene);
+        scene.setUserAgentStylesheet("system.css");
+        pane.getStyleClass().add("system");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    private Group setUpSystem(Pane pane, Point2D center) {
         final Group system = new Group();
+        drawSolarSystem(system, center);
+        pane.getChildren().add(system);
+        return system;
+    }
+
+    private void drawSolarSystem(Group system, Point2D center) {
+        final PlanetDrawer drawer = new PlanetDrawer(center);
         drawer.draw(system, new Sun());
         drawer.draw(system, new Mercury());
         drawer.draw(system, new Venus());
@@ -51,12 +66,6 @@ public final class HelloJava extends Application {
         drawer.draw(system, new Saturn());
         drawer.draw(system, new Uranus());
         drawer.draw(system, new Neptune());
-        pane.getChildren().add(system);
-        registerHandlers(system, scene);
-        scene.setUserAgentStylesheet("system.css");
-        pane.getStyleClass().add("system");
-        primaryStage.setScene(scene);
-        primaryStage.show();
     }
 
     private void registerHandlers(Node node, Scene scene) {

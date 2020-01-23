@@ -38,7 +38,7 @@
   <!-- See https://checkstyle.org/config_whitespace.html         -->
   <module name="FileTabCharacter"/>
 
-  <!-- Miscellaneous other checks.                 -->
+  <!-- Lines should not have trailing spaces.      -->
   <!-- See https://checkstyle.org/config_misc.html -->
   <module name="RegexpSingleline">
     <property name="format" value="\s+$"/>
@@ -48,7 +48,7 @@
   </module>
 
   <module name="TreeWalker">
-    <!-- Indentation check. -->
+    <!-- Indentation check: should use 4 spaces and no tabs. -->
     <property name="tabWidth" value="4"/>
 
     <!-- ### JAVADOC CONFIGURATION ### -->
@@ -81,6 +81,7 @@
 
     <!-- ### NAMING CONFIGURATION ### -->
 
+    <!-- Using abbreviations in names is forbidden.                         -->
     <!-- https://checkstyle.org/config_naming.html#AbbreviationAsWordInName -->
     <module name="AbbreviationAsWordInName">
       <property name="allowedAbbreviationLength" value="0" />
@@ -161,7 +162,7 @@
     <!-- Do not use redundant imports.                              -->
     <!-- https://checkstyle.org/config_imports.html#RedundantImport -->
     <module name="RedundantImport"/>
-    <!-- Unused import check.                                     -->
+    <!-- Do not import something you don't use at all.            -->
     <!-- https://checkstyle.org/config_imports.html#UnusedImports -->
     <module name="UnusedImports"/>
     <!-- Correct import order is: static imports, normal imports in the following order: -->
