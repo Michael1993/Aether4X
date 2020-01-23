@@ -296,6 +296,7 @@
     <module name="FinalLocalVariable">
       <property name="severity" value="info"/>
       <property name="validateEnhancedForLoopVariable" value="true"/>
+      <message key="final.variable" value="'{0}' could be final." />
     </module>
     <!-- https://checkstyle.org/config_coding.html#HiddenField -->
     <module name="HiddenField">
@@ -328,7 +329,8 @@
     </module>
     <!--https://checkstyle.org/config_coding.html#MissingCtor -->
     <module name="MissingCtor">
-      <property name="severity" value="warning"/>
+      <property name="severity" value="info"/>
+      <message key="missing.ctor" value="Class relies on the default constructor."/>
     </module>
     <!--https://checkstyle.org/config_coding.html#ModifiedControlVariable -->
     <module name="ModifiedControlVariable">
