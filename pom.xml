@@ -7,6 +7,31 @@
   <groupId>com.verhas.aether</groupId>
   <artifactId>aether4x</artifactId>
   <version>0.1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <properties>
+    <org.openjfx.version>13.0.1</org.openjfx.version>
+    <org.junit.jupiter.version>5.5.2</org.junit.jupiter.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-graphics -->
+      <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-graphics</artifactId>
+        <version>${org.openjfx.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>${org.junit.jupiter.version}</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <build>
     <plugins>
       <plugin>
@@ -14,9 +39,9 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
-          <source>11</source>
-          <target>11</target>
-          <release>11</release>
+          <source>13</source>
+          <target>13</target>
+          <release>13</release>
         </configuration>
       </plugin>
       <plugin>
@@ -47,34 +72,10 @@
     </plugins>
   </build>
 
-  <packaging>pom</packaging>
-
   <modules>
     <module>aether-ui</module>
     <module>aether-api</module>
     <module>aether-engine</module>
     <module>aether-domain</module>
   </modules>
-
-  <properties>
-    <javax0.javageci.version>1.1.2-SNAPSHOT</javax0.javageci.version>
-  </properties>
-
-  <dependencyManagement>
-    <dependencies>
-      <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-graphics -->
-      <dependency>
-        <groupId>org.openjfx</groupId>
-        <artifactId>javafx-graphics</artifactId>
-        <version>12</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-api</artifactId>
-        <version>5.4.2</version>
-        <scope>test</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
 </project>

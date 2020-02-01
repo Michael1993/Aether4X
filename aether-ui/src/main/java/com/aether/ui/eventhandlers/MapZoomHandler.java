@@ -28,7 +28,7 @@ public final class MapZoomHandler {
     }
 
     /**
-     * Handles the mouse scrolling.
+     * Handles the mouse scrolling - zooms in or zooms out.
      * @param event the scroll event.
      */
     public void scroll(ScrollEvent event) {

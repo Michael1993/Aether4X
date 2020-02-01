@@ -38,7 +38,7 @@
   <!-- See https://checkstyle.org/config_whitespace.html         -->
   <module name="FileTabCharacter"/>
 
-  <!-- Miscellaneous other checks.                 -->
+  <!-- Lines should not have trailing spaces.      -->
   <!-- See https://checkstyle.org/config_misc.html -->
   <module name="RegexpSingleline">
     <property name="format" value="\s+$"/>
@@ -48,7 +48,7 @@
   </module>
 
   <module name="TreeWalker">
-    <!-- Indentation check. -->
+    <!-- Indentation check: should use 4 spaces and no tabs. -->
     <property name="tabWidth" value="4"/>
 
     <!-- ### JAVADOC CONFIGURATION ### -->
@@ -81,6 +81,7 @@
 
     <!-- ### NAMING CONFIGURATION ### -->
 
+    <!-- Using abbreviations in names is forbidden.                         -->
     <!-- https://checkstyle.org/config_naming.html#AbbreviationAsWordInName -->
     <module name="AbbreviationAsWordInName">
       <property name="allowedAbbreviationLength" value="0" />
@@ -161,7 +162,7 @@
     <!-- Do not use redundant imports.                              -->
     <!-- https://checkstyle.org/config_imports.html#RedundantImport -->
     <module name="RedundantImport"/>
-    <!-- Unused import check.                                     -->
+    <!-- Do not import something you don't use at all.            -->
     <!-- https://checkstyle.org/config_imports.html#UnusedImports -->
     <module name="UnusedImports"/>
     <!-- Correct import order is: static imports, normal imports in the following order: -->
@@ -295,6 +296,7 @@
     <module name="FinalLocalVariable">
       <property name="severity" value="info"/>
       <property name="validateEnhancedForLoopVariable" value="true"/>
+      <message key="final.variable" value="'{0}' could be final." />
     </module>
     <!-- https://checkstyle.org/config_coding.html#HiddenField -->
     <module name="HiddenField">
@@ -320,20 +322,26 @@
     </module>
     <!--https://checkstyle.org/config_coding.html#InnerAssignment -->
     <module name="InnerAssignment"/>
-    <!--https://checkstyle.org/config_coding.html#MagicNumber -->
+    <!-- Magic numbers should be extracted to (static) final fields/local variables. -->
+    <!--https://checkstyle.org/config_coding.html#MagicNumber                        -->
     <module name="MagicNumber">
       <property name="ignoreHashCodeMethod" value="true"/>
       <property name="ignoreAnnotation" value="true"/>
     </module>
-    <!--https://checkstyle.org/config_coding.html#MissingCtor -->
+    <!-- Having an explicit default constructor could make your code more readable.                                      -->
+    <!-- Most of the times having an explicit no-argument constructor is just 'noise', so this is just a reminder check. -->
+    <!--https://checkstyle.org/config_coding.html#MissingCtor                                                            -->
     <module name="MissingCtor">
-      <property name="severity" value="warning"/>
+      <property name="severity" value="info"/>
+      <message key="missing.ctor" value="Class relies on the default constructor."/>
     </module>
-    <!--https://checkstyle.org/config_coding.html#ModifiedControlVariable -->
+    <!-- While sometimes necessary, it's usually bad design to modify for loop control variables. -->
+    <!--https://checkstyle.org/config_coding.html#ModifiedControlVariable                         -->
     <module name="ModifiedControlVariable">
       <property name="severity" value="info"/>
     </module>
-    <!--https://checkstyle.org/config_coding.html#MissingSwitchDefault -->
+    <!-- Switch statements should have a default branch, if nothing else to throw an exception. -->
+    <!--https://checkstyle.org/config_coding.html#MissingSwitchDefault                          -->
     <module name="MissingSwitchDefault"/>
     <!--https://checkstyle.org/config_coding.html#MultipleStringLiterals -->
     <module name="MultipleStringLiterals">
@@ -359,6 +367,7 @@
     <module name="NoClone">
       <property name="severity" value="warning"/>
     </module>
+    <!-- finalize() is @Deprecated and should never be used.  -->
     <!--https://checkstyle.org/config_coding.html#NoFinalizer -->
     <module name="NoFinalizer"/>
     <!--https://checkstyle.org/config_coding.html#OneStatementPerLine -->
