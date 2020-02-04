@@ -1,14 +1,6 @@
 package com.aether.ui.drawers;
 
-import com.aether.ui.drawers.temp.Earth;
-import com.aether.ui.drawers.temp.Jupiter;
-import com.aether.ui.drawers.temp.Mars;
-import com.aether.ui.drawers.temp.Mercury;
-import com.aether.ui.drawers.temp.Neptune;
-import com.aether.ui.drawers.temp.Saturn;
-import com.aether.ui.drawers.temp.Sun;
-import com.aether.ui.drawers.temp.Uranus;
-import com.aether.ui.drawers.temp.Venus;
+import com.aether.ui.drawers.temp.SolarSystem;
 import com.aether.ui.eventhandlers.MapDragHandler;
 import com.aether.ui.eventhandlers.MapZoomHandler;
 
@@ -56,16 +48,8 @@ public final class HelloJava extends Application {
     }
 
     private void drawSolarSystem(Group system, Point2D center) {
-        final PlanetDrawer drawer = new PlanetDrawer(center);
-        drawer.draw(system, new Sun());
-        drawer.draw(system, new Mercury());
-        drawer.draw(system, new Venus());
-        drawer.draw(system, new Earth());
-        drawer.draw(system, new Mars());
-        drawer.draw(system, new Jupiter());
-        drawer.draw(system, new Saturn());
-        drawer.draw(system, new Uranus());
-        drawer.draw(system, new Neptune());
+        final SolarSystemDrawer drawer = new SolarSystemDrawer(center);
+        drawer.draw(system, new SolarSystem());
     }
 
     private void registerHandlers(Node node, Scene scene) {

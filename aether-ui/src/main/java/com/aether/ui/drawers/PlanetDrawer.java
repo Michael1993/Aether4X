@@ -11,7 +11,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 /**
- * Draws a System to a supplied JavaFX Parent.
+ * Draws a CelestialBody to a supplied JavaFX {@link Group}.
  */
 public class PlanetDrawer implements Drawer<Group, CelestialBody> {
 
@@ -97,10 +97,17 @@ public class PlanetDrawer implements Drawer<Group, CelestialBody> {
     }
 
     private Node asSun(CelestialBody body) {
-        final Circle sun = new Circle(body.getRadius());
-        sun.setCenterX(center.getX());
-        sun.setCenterY(center.getY());
-        sun.getStyleClass().add("sun");
+        final var view = CelestialBodyTransformer.transform(body);
+        final Group sun = new Group();
+        final Circle sunBody = new Circle(body.getRadius());
+        sunBody.setCenterX(center.getX());
+        sunBody.setCenterY(center.getY());
+        sunBody.getStyleClass().add("sun");
+        final var sunName = this.name(view, sunBody);
+        sun.getChildren().addAll(
+            sunBody,
+            sunName
+        );
         return sun;
     }
 }
