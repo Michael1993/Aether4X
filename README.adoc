@@ -14,7 +14,7 @@ Aether should also be able to load additional game logic/data and merge it with 
  
 The current plan is to use (for the default implementation):
 
- * https://www.postgresql.org[PostGreSQL] for data that doesn't change (i.e.: Space object data).
+ * https://www.postgresql.org[PostgreSQL] for data that doesn't change (i.e.: Space object data).
  * https://www.json.org[JSON] for data subject to change (i.e.: game data).
  * https://github.com/google/gson[GSON] for JSON serialization.
  * https://openjfx.io[JavaFX] for UI.
