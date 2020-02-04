@@ -47,6 +47,13 @@
     <property name="message" value="Line has trailing spaces."/>
   </module>
 
+  <!-- Lines should be no longer than 120 characters.       -->
+  <!-- https://checkstyle.org/config_sizes.html#LineLength -->
+  <module name="LineLength">
+    <property name="max" value="120"/>
+    <property name="ignorePattern" value="[*]+[ A-Za-z]*"/>
+  </module>
+
   <module name="TreeWalker">
     <!-- Indentation check: should use 4 spaces and no tabs. -->
     <property name="tabWidth" value="4"/>
@@ -57,15 +64,13 @@
     <!-- Standard setters and getters don't need javadoc                 -->
     <!-- https://checkstyle.org/config_javadoc.html#MissingJavadocMethod -->
     <module name="MissingJavadocMethod">
-      <property name="scope" value="protected"/>
+      <property name="allowMissingPropertyJavadoc" value="true"/>
     </module>
     <!-- https://checkstyle.org/config_javadoc.html#JavadocMethod -->
-    <module name="JavadocMethod">
-      <property name="scope" value="protected"/>
-      <property name="allowUndeclaredRTE" value="true"/>
-      <property name="allowMissingPropertyJavadoc" value="true"/>
-      <property name="tokens" value="METHOD_DEF"/>
-    </module>
+    <module name="JavadocMethod"/>
+    <!-- Javadoc comments should start on the second line.                            -->
+    <!-- https://checkstyle.sourceforge.io/config_javadoc.html#JavadocContentLocation -->
+    <module name="JavadocContentLocationCheck"/>
     <!-- Public types should have documentation.                       -->
     <!-- https://checkstyle.org/config_javadoc.html#MissingJavadocType -->
     <module name="MissingJavadocType"/>
@@ -182,12 +187,6 @@
     <!-- https://checkstyle.org/config_sizes.html#AnonInnerLength -->
     <module name="AnonInnerLength">
       <property name="max" value="20"/>
-    </module>
-    <!-- Lines should be no longer than 80 characters.       -->
-    <!-- https://checkstyle.org/config_sizes.html#LineLength -->
-    <module name="LineLength">
-      <property name="max" value="120"/>
-      <property name="ignorePattern" value="[*]+[ A-Za-z]*"/>
     </module>
     <!-- Methods should be relatively short, if possible.      -->
     <!-- https://checkstyle.org/config_sizes.html#MethodLength -->
@@ -363,7 +362,8 @@
     <module name="NestedTryDepth">
       <property name="severity" value="warning"/>
     </module>
-    <!--https://checkstyle.org/config_coding.html#NoClone -->
+    <!-- Use a copy constructor or a static factory method, instead of clone() -->
+    <!--https://checkstyle.org/config_coding.html#NoClone                      -->
     <module name="NoClone">
       <property name="severity" value="warning"/>
     </module>
