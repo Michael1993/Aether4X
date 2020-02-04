@@ -20,4 +20,4 @@ script:
 
 install: mvn -X clean install
 jdk:
- - openjdk11
+ - openjdk13
