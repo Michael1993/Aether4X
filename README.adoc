@@ -1,5 +1,5 @@
 = Aether4X
-image::https://travis-ci.org/Michael1993/Aether4X.svg?branch=master[link="https://travis-ci.org/Michael1993/Aether4X"]
+image:https://travis-ci.org/Michael1993/Aether4X.svg?branch=master
 
 A clone of http://aurora2.pentarch.org[Aurora], written in Java.
 
