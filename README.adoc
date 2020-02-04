@@ -6,12 +6,14 @@ A clone of http://aurora2.pentarch.org[Aurora], written in Java.
 
 == Goals
 I aim to create a highly modular clone of Aurora, meaning it should be fairly simple to:
+
  * Replace the data.
  * Replace the UI.
  * Replace some gameplay rules.
 Aether should also be able to load additional game logic/data and merge it with it's base.
  
-The current plan is to use (for the default implementation)
+The current plan is to use (for the default implementation):
+
  * https://www.postgresql.org[PostGreSQL] for data that doesn't change (i.e.: Space object data).
  * https://www.json.org[JSON] for data subject to change (i.e.: game data).
  * https://github.com/google/gson[GSON] for JSON serialization.
