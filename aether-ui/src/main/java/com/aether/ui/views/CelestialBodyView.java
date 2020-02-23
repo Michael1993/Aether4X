@@ -16,7 +16,7 @@ public final class CelestialBodyView implements CelestialBody {
     private Rotate currentRotation;
 
     /**
-     * Creates a new Proxy for the specified {@code CelestialBody}.
+     * Creates a new proxy for the specified {@code CelestialBody}.
      * The starting rotation is 0.
      * @param body the body you want to proxy.
      */
@@ -27,9 +27,9 @@ public final class CelestialBodyView implements CelestialBody {
     }
 
     /**
-     * Creates a new Proxy for the specified {@code CelestialBody}.
-     * The rotation starts from the 'right side' of the orbit.
-     * @param body the body to be wrapped.
+     * Creates a new proxy for the specified {@code CelestialBody}.
+     * The rotation starts from the 'right side' (or 3 o'clock) of the orbit.
+     * @param body the body you want to proxy.
      * @param startingRotation the starting rotation of this body.
      */
     public CelestialBodyView(CelestialBody body, double startingRotation) {
@@ -55,7 +55,7 @@ public final class CelestialBodyView implements CelestialBody {
 
     @Override
     public double getRadius() {
-        return DEFAULT_BODY_RADIUS;
+        return body.getRadius() * Scales.KM_TO_PIXEL.scale();
     }
 
     @Override

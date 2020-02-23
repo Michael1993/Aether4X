@@ -21,6 +21,7 @@ public final class MapZoomHandler {
 
     /**
      * Creates a new map zoom handler.
+     * @param map the map for which we create this zoom handler
      */
     public MapZoomHandler(Node map) {
         scrollLevel = DEFAULT_ZOOM_LEVEL;

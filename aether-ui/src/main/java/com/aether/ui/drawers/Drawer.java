@@ -3,6 +3,7 @@ package com.aether.ui.drawers;
 /**
  * Draws or updates the specified resource with data from the specified resource.
  * Once I am more familiar with JavaFX, this should be updated with non-generic type params.
+ * This interface will be moved to aether-api, to make replacing the UI easier.
  * @param <I> the resource that should be updated.
  * @param <T> the resource that should provide the data.
  */
