@@ -21,6 +21,7 @@ public final class MapZoomHandler {
 
     /**
      * Creates a new map zoom handler.
+     *
      * @param map the map for which we create this zoom handler
      */
     public MapZoomHandler(Node map) {
@@ -30,12 +31,13 @@ public final class MapZoomHandler {
 
     /**
      * Handles the mouse scrolling - zooms in or zooms out.
+     *
      * @param event the scroll event.
      */
     public void scroll(ScrollEvent event) {
         final double delta = event.getDeltaY() / SCROLL_SCALING;
         if (!(scrollLevel <= MIN_ZOOM_LEVEL && delta < 0)
-            && !(scrollLevel >= MAX_ZOOM_LEVEL && delta > 0)) {
+                && !(scrollLevel >= MAX_ZOOM_LEVEL && delta > 0)) {
             scrollLevel += delta;
             scrollToLevel();
         }
@@ -48,6 +50,7 @@ public final class MapZoomHandler {
 
     /**
      * Resets the zoom level to default if Ctrl + 0 is pressed.
+     *
      * @param event the event we check
      */
     public void resetOnControlZero(KeyEvent event) {

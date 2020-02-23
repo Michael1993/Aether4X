@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 public final class HelloJava extends Application {
     /**
      * Standard entry point of the application.
+     *
      * @param args parameter arguments for the application when called from the command line.
      */
     public static void main(String[] args) {

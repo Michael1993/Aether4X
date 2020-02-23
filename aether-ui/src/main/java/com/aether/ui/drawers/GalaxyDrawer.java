@@ -7,9 +7,11 @@ import javafx.scene.Parent;
  */
 public class GalaxyDrawer implements Drawer<Parent, Integer> {
 
-    @Override public void draw(Parent context, Integer type) {
+    @Override
+    public void draw(Parent context, Integer type) {
     }
 
-    @Override public void update(Parent context, Integer type) {
+    @Override
+    public void update(Parent context, Integer type) {
     }
 }

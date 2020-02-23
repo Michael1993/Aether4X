@@ -15,6 +15,7 @@ public final class MapDragHandler {
 
     /**
      * Creates a MapDragHandler which acts on the specified Node.
+     *
      * @param map the map we want to drag.
      */
     public MapDragHandler(Node map) {
@@ -23,15 +24,16 @@ public final class MapDragHandler {
 
     /**
      * This method handles the actual dragging of the map.
+     *
      * @param event the mouse event that contains the data about the dragging.
      */
     public void drag(MouseEvent event) {
         if (start != null) {
             map.getTransforms().add(
-                Transform.translate(
-                    (event.getSceneX() - start.getX()) / map.getScaleX(),
-                    (event.getSceneY() - start.getY()) / map.getScaleY()
-                )
+                    Transform.translate(
+                            (event.getSceneX() - start.getX()) / map.getScaleX(),
+                            (event.getSceneY() - start.getY()) / map.getScaleY()
+                    )
             );
         }
         start = new Point2D(event.getSceneX(), event.getSceneY());
@@ -39,6 +41,7 @@ public final class MapDragHandler {
 
     /**
      * Called when the dragging ends.
+     *
      * @param event the event we check for dragging end.
      */
     public void stopAtDragEnd(MouseEvent event) {

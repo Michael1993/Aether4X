@@ -19,6 +19,7 @@ public class PlanetDrawer implements Drawer<Group, CelestialBody> {
 
     /**
      * Creates a new PlanetDrawer.
+     *
      * @param center the center of the system.
      */
     public PlanetDrawer(Point2D center) {
@@ -55,8 +56,8 @@ public class PlanetDrawer implements Drawer<Group, CelestialBody> {
         final Text planetName = new Text(body.getName());
 
         final Point2D planetCenter = planet.localToParent(
-            planet.getCenterX(),
-            planet.getCenterY()
+                planet.getCenterX(),
+                planet.getCenterY()
         );
         planetName.setX(planetCenter.getX() - planetName.getText().length() * 2);
         planetName.setY(planetCenter.getY() + body.getRadius() * 2 * 2);
@@ -89,9 +90,9 @@ public class PlanetDrawer implements Drawer<Group, CelestialBody> {
         rotate(planetBody, planet);
         final var name = this.name(planetBody, planet);
         celestial.getChildren().addAll(
-            orbit,
-            planet,
-            name
+                orbit,
+                planet,
+                name
         );
         return celestial;
     }
@@ -105,8 +106,8 @@ public class PlanetDrawer implements Drawer<Group, CelestialBody> {
         sunBody.getStyleClass().add("sun");
         final var sunName = this.name(view, sunBody);
         sun.getChildren().addAll(
-            sunBody,
-            sunName
+                sunBody,
+                sunName
         );
         return sun;
     }

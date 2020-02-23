@@ -18,6 +18,7 @@ public final class CelestialBodyView implements CelestialBody {
     /**
      * Creates a new proxy for the specified {@code CelestialBody}.
      * The starting rotation is 0.
+     *
      * @param body the body you want to proxy.
      */
     public CelestialBodyView(CelestialBody body) {
@@ -29,7 +30,8 @@ public final class CelestialBodyView implements CelestialBody {
     /**
      * Creates a new proxy for the specified {@code CelestialBody}.
      * The rotation starts from the 'right side' (or 3 o'clock) of the orbit.
-     * @param body the body you want to proxy.
+     *
+     * @param body             the body you want to proxy.
      * @param startingRotation the starting rotation of this body.
      */
     public CelestialBodyView(CelestialBody body, double startingRotation) {
@@ -85,6 +87,7 @@ public final class CelestialBodyView implements CelestialBody {
 
     /**
      * Gets the current rotation of the planet.
+     *
      * @return the current rotation around the center.
      */
     public Rotate getCurrentRotation() {
@@ -93,16 +96,17 @@ public final class CelestialBodyView implements CelestialBody {
 
     /**
      * Rotates the planet around the center (specified in the param).
+     *
      * @param timePeriod how much time has passed.
-     * @param center the position around which planet should rotate.
+     * @param center     the position around which planet should rotate.
      */
     public void rotate(double timePeriod, Point2D center) {
         final double angle = startingRotation + (360 / getOrbitPeriod()) * timePeriod;
         if (currentRotation.getAngle() != angle) {
             currentRotation = new Rotate(
-                -angle,
-                center.getX(),
-                center.getY()
+                    -angle,
+                    center.getX(),
+                    center.getY()
             );
         }
     }

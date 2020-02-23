@@ -14,7 +14,8 @@ public final class SolarSystem implements CelestialObject {
 
     /**
      * Creates a new {@code SolarSystem} with the supplied celestial objects.
-     * @param name the name of this {@code SolarSystem}
+     *
+     * @param name    the name of this {@code SolarSystem}
      * @param objects the objects in this {@code SolarSystem}, e.g.: planets, moons, asteroids, etc.
      */
     public SolarSystem(String name, List<CelestialBody> objects) {

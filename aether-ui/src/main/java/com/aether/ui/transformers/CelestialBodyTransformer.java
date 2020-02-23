@@ -13,6 +13,7 @@ public final class CelestialBodyTransformer {
 
     /**
      * Transforms a CelestialBody into a CelestialBodyView.
+     *
      * @param body the body to convert.
      * @return a CelestialBodyView with 0 rotation.
      */

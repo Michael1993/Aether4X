@@ -13,18 +13,21 @@ public class SolarSystemDrawer implements Drawer<Group, CelestialObject> {
 
     /**
      * Creates a new SolarSystemDrawer with the specified center point.
+     *
      * @param center the center of the screen
      */
     public SolarSystemDrawer(Point2D center) {
         this.planetDrawer = new PlanetDrawer(center);
     }
 
-    @Override public void draw(Group context, CelestialObject type) {
+    @Override
+    public void draw(Group context, CelestialObject type) {
         type.getBodies().forEach(planet ->
-            planetDrawer.draw(context, planet)
+                planetDrawer.draw(context, planet)
         );
     }
 
-    @Override public void update(Group context, CelestialObject type) {
+    @Override
+    public void update(Group context, CelestialObject type) {
     }
 }

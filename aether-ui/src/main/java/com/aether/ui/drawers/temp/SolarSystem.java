@@ -10,29 +10,33 @@ import com.aether.model.celestials.CelestialObject;
  * Represents the Solar System with all its planets.
  */
 public final class SolarSystem implements CelestialObject {
-    @Override public String getName() {
+    @Override
+    public String getName() {
         return "Sol-0";
     }
 
-    @Override public String getType() {
+    @Override
+    public String getType() {
         return "Solar system";
     }
 
-    @Override public List<CelestialObject> getSubstructures() {
+    @Override
+    public List<CelestialObject> getSubstructures() {
         return Collections.emptyList();
     }
 
-    @Override public List<CelestialBody> getBodies() {
+    @Override
+    public List<CelestialBody> getBodies() {
         return List.of(
-            new Sun(),
-            new Mercury(),
-            new Venus(),
-            new Earth(),
-            new Mars(),
-            new Jupiter(),
-            new Saturn(),
-            new Uranus(),
-            new Neptune()
+                new Sun(),
+                new Mercury(),
+                new Venus(),
+                new Earth(),
+                new Mars(),
+                new Jupiter(),
+                new Saturn(),
+                new Uranus(),
+                new Neptune()
         );
     }
 }

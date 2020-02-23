@@ -8,10 +8,10 @@ import java.util.List;
  * which may consist of multiple bodies
  * or even other objects with substructures.
  * I.e.:
- *  - A planetary system
- *  - A star cluster
- *  - A nebulae
- *  - A galaxy
+ * - A planetary system
+ * - A star cluster
+ * - A nebulae
+ * - A galaxy
  */
 public interface CelestialObject {
     /**
