@@ -50,6 +50,8 @@ public interface CelestialBody {
 
     /**
      * Gets the approximate rotation period of the body in days.
+     * This is in Earth days (24h), not the "day" (rotation period)
+     * of the specific body.
      *
      * @return the amount of time it takes for the current body to do a full orbit.
      */
@@ -57,6 +59,8 @@ public interface CelestialBody {
 
     /**
      * Gets the farthest point in the orbit of a planetary body about its primary body in AUs.
+     * E.g.: If the current body is the Earth, this returns the farthest point
+     * of the Earth's orbit from the Sun.
      * AU - Astronomical Unit. https://en.wikipedia.org/wiki/Astronomical_unit
      *
      * @return the apoapsis of the current body.
@@ -65,6 +69,8 @@ public interface CelestialBody {
 
     /**
      * Gets the nearest point in the orbit of a planetary body about its primary body in AUs.
+     * E.g.: If the current body is the Earth, this returns the nearest point
+     * of the Earth's orbit from the Sun.
      * AU - Astronomical Unit. https://en.wikipedia.org/wiki/Astronomical_unit
      *
      * @return the periapsis of the current body.
