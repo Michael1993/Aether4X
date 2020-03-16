@@ -1,5 +1,7 @@
 package com.aether.ui.drawers.temp;
 
+import java.util.List;
+
 import com.aether.model.celestials.CelestialBody;
 
 /**
@@ -59,7 +61,7 @@ public final class Saturn implements CelestialBody {
     }
 
     @Override
-    public CelestialBody[] getOrbitingBodies() {
-        return new CelestialBody[0];
+    public List<CelestialBody> getOrbitingBodies() {
+        return List.of();
     }
 }

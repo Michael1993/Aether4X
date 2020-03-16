@@ -1,5 +1,7 @@
 package com.aether.model.celestials;
 
+import java.util.List;
+
 /**
  * Represents a celestial body.
  * A single, tightly bound, contiguous entity.
@@ -79,16 +81,16 @@ public interface CelestialBody {
 
     /**
      * Gets the celestial bodies orbiting this body.
-     * If no object orbits this body, it should return an empty array.
      * I.e.:
      * - Moons (in case of planets)
      * - Planets (in case of stars)
-     * - Asteroids (in case of stars)
-     * - Comets (in case of stars)
+     * - Asteroids
+     * - Comets
+     * If no objects orbit this body, it should return an empty list.
      *
      * @return the celestial bodies orbiting this body.
      */
-    CelestialBody[] getOrbitingBodies();
+    List<CelestialBody> getOrbitingBodies();
 
     /**
      * Gets the average radius of the orbit in AUs.

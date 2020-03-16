@@ -6,7 +6,8 @@ import com.aether.model.celestials.CelestialBody;
 import com.aether.model.celestials.CelestialObject;
 
 /**
- * Represents a solar system.
+ * Represents a solar system or planetary system.
+ * https://en.wikipedia.org/wiki/Planetary_system
  */
 public final class SolarSystem implements CelestialObject {
     private final String name;
@@ -30,7 +31,7 @@ public final class SolarSystem implements CelestialObject {
 
     @Override
     public String getType() {
-        return "planetary system";
+        return CelestialType.Objects.PLANETARY_SYSTEM.toString();
     }
 
     @Override

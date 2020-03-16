@@ -1,5 +1,7 @@
 package com.aether.ui.views;
 
+import java.util.List;
+
 import com.aether.model.celestials.CelestialBody;
 
 import javafx.geometry.Point2D;
@@ -52,12 +54,12 @@ public final class CelestialBodyView implements CelestialBody {
 
     @Override
     public double getMass() {
-        return body.getMass() * Scales.MASS_SCALE.scale();
+        return body.getMass();
     }
 
     @Override
     public double getRadius() {
-        return body.getRadius() * Scales.KM_TO_PIXEL.scale();
+        return DEFAULT_BODY_RADIUS;
     }
 
     @Override
@@ -81,7 +83,7 @@ public final class CelestialBodyView implements CelestialBody {
     }
 
     @Override
-    public CelestialBody[] getOrbitingBodies() {
+    public List<CelestialBody> getOrbitingBodies() {
         return body.getOrbitingBodies();
     }
 
