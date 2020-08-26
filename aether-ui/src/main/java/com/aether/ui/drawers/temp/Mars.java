@@ -1,67 +1,70 @@
+/*
+    MIT License
+    Copyright (c) 2020 Mihály Verhás
+    See LICENSE file.
+*/
 package com.aether.ui.drawers.temp;
 
 import java.util.List;
 
-import com.aether.model.celestials.CelestialBody;
+import com.aether.model.celestials.bodies.CelestialBody;
 
-/**
- * Mars.
- */
+/** Mars. */
 public final class Mars implements CelestialBody {
-    private static final double ORBIT_APOAPSIS = 1.666;
-    private static final double ORBIT_PERIAPSIS = 1.382;
-    private static final long PLANET_RADIUS = 3_889L;
-    private static final double ORBIT_PERIOD = 686.97;
-    private static final String NAME = "Mars";
 
-    /**
-     * Creates Mars.
-     */
-    public Mars() {
-    }
+	private static final double ORBIT_APOAPSIS = 1.666;
+	private static final double ORBIT_PERIAPSIS = 1.382;
+	private static final long PLANET_RADIUS = 3_889L;
+	private static final double ORBIT_PERIOD = 686.97;
+	private static final String NAME = "Mars";
 
-    @Override
-    public String getType() {
-        return "Planet";
-    }
+	/** Creates Mars. */
+	public Mars() {
+	}
 
-    @Override
-    public String getName() {
-        return NAME;
-    }
+	@Override
+	public String getType() {
+		return "Planet";
+	}
 
-    @Override
-    public double getMass() {
-        return 0;
-    }
+	@Override
+	public String getName() {
+		return NAME;
+	}
 
-    @Override
-    public double getRadius() {
-        return PLANET_RADIUS;
-    }
+	@Override
+	public double getMass() {
+		return 0;
+	}
 
-    @Override
-    public double getRotationPeriod() {
-        return 0;
-    }
+	@Override
+	public double getRadius() {
+		return PLANET_RADIUS;
+	}
 
-    @Override
-    public double getOrbitPeriod() {
-        return ORBIT_PERIOD;
-    }
+	@Override
+	public double getRotationPeriod() {
+		return 0;
+	}
 
-    @Override
-    public double getApoapsis() {
-        return ORBIT_APOAPSIS;
-    }
+	@Override
+	public double getOrbitPeriod() {
+		return ORBIT_PERIOD;
+	}
 
-    @Override
-    public double getPeriapsis() {
-        return ORBIT_PERIAPSIS;
-    }
+	@Override
+	public double getApoapsis() {
+		return ORBIT_APOAPSIS;
+	}
 
-    @Override
-    public List<CelestialBody> getOrbitingBodies() {
-        return List.of();
-    }
+	@Override
+	public double getPeriapsis() {
+		return ORBIT_PERIAPSIS;
+	}
+
+	@Override
+	public List<CelestialBody> getOrbitingBodies() {
+		return List.of();
+	}
+
 }

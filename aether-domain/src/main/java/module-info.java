@@ -1,3 +1,3 @@
 module aether.domain {
-    requires aether.api;
+  requires aether.api;
 }

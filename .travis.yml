@@ -12,6 +12,7 @@ script:
   - echo PATH = ${PATH}
   - echo JAVA_HOME = ${JAVA_HOME}
   - java -version
+  - mvn spotless:check
   - mvn -X clean install
 
 jdk:

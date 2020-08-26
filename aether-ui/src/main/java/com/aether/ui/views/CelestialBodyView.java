@@ -1,115 +1,113 @@
+/*
+    MIT License
+    Copyright (c) 2020 Mihály Verhás
+    See LICENSE file.
+*/
 package com.aether.ui.views;
 
 import java.util.List;
 
-import com.aether.model.celestials.CelestialBody;
-
 import javafx.geometry.Point2D;
 import javafx.scene.transform.Rotate;
 
-/**
- * A proxy class for {@code CelestialBody} to be used in JavaFX.
- */
+import com.aether.model.celestials.bodies.CelestialBody;
+
+/** A proxy class for {@code CelestialBody} to be used in JavaFX. */
 public final class CelestialBodyView implements CelestialBody {
-    private static final long DEFAULT_BODY_RADIUS = 5L;
-    private final CelestialBody body;
 
-    private final double startingRotation;
-    private Rotate currentRotation;
+	private static final long DEFAULT_BODY_RADIUS = 5L;
+	private final CelestialBody body;
 
-    /**
-     * Creates a new proxy for the specified {@code CelestialBody}.
-     * The starting rotation is 0.
-     *
-     * @param body the body you want to proxy.
-     */
-    public CelestialBodyView(CelestialBody body) {
-        this.body = body;
-        this.startingRotation = 0.0;
-        currentRotation = new Rotate(startingRotation);
-    }
+	private final double startingRotation;
+	private Rotate currentRotation;
 
-    /**
-     * Creates a new proxy for the specified {@code CelestialBody}.
-     * The rotation starts from the 'right side' (or 3 o'clock) of the orbit.
-     *
-     * @param body             the body you want to proxy.
-     * @param startingRotation the starting rotation of this body.
-     */
-    public CelestialBodyView(CelestialBody body, double startingRotation) {
-        this.body = body;
-        this.startingRotation = startingRotation;
-        currentRotation = new Rotate(startingRotation);
-    }
+	/**
+	 * Creates a new proxy for the specified {@code CelestialBody}. The starting rotation is 0.
+	 *
+	 * @param body the body you want to proxy.
+	 */
+	public CelestialBodyView(CelestialBody body) {
+		this(body, 0.0);
+	}
 
-    @Override
-    public String getName() {
-        return body.getName();
-    }
+	/**
+	 * Creates a new proxy for the specified {@code CelestialBody}. The rotation starts from the
+	 * 'right side' (or 3 o'clock) of the orbit.
+	 *
+	 * @param body the body you want to proxy.
+	 * @param startingRotation the starting rotation of this body.
+	 */
+	public CelestialBodyView(CelestialBody body, double startingRotation) {
+		this.body = body;
+		this.startingRotation = startingRotation;
+		currentRotation = new Rotate(startingRotation);
+	}
 
-    @Override
-    public String getType() {
-        return body.getType();
-    }
+	@Override
+	public String getName() {
+		return body.getName();
+	}
 
-    @Override
-    public double getMass() {
-        return body.getMass();
-    }
+	@Override
+	public String getType() {
+		return body.getType();
+	}
 
-    @Override
-    public double getRadius() {
-        return DEFAULT_BODY_RADIUS;
-    }
+	@Override
+	public double getMass() {
+		return body.getMass();
+	}
 
-    @Override
-    public double getRotationPeriod() {
-        return body.getRotationPeriod();
-    }
+	@Override
+	public double getRadius() {
+		return DEFAULT_BODY_RADIUS;
+	}
 
-    @Override
-    public double getOrbitPeriod() {
-        return body.getOrbitPeriod();
-    }
+	@Override
+	public double getRotationPeriod() {
+		return body.getRotationPeriod();
+	}
 
-    @Override
-    public double getApoapsis() {
-        return body.getApoapsis() * Scales.AU_TO_PIXEL.scale();
-    }
+	@Override
+	public double getOrbitPeriod() {
+		return body.getOrbitPeriod();
+	}
 
-    @Override
-    public double getPeriapsis() {
-        return body.getPeriapsis() * Scales.AU_TO_PIXEL.scale();
-    }
+	@Override
+	public double getApoapsis() {
+		return body.getApoapsis() * Scales.AU_TO_PIXEL.scale();
+	}
 
-    @Override
-    public List<CelestialBody> getOrbitingBodies() {
-        return body.getOrbitingBodies();
-    }
+	@Override
+	public double getPeriapsis() {
+		return body.getPeriapsis() * Scales.AU_TO_PIXEL.scale();
+	}
 
-    /**
-     * Gets the current rotation of the planet.
-     *
-     * @return the current rotation around the center.
-     */
-    public Rotate getCurrentRotation() {
-        return currentRotation;
-    }
+	@Override
+	public List<CelestialBody> getOrbitingBodies() {
+		return body.getOrbitingBodies();
+	}
 
-    /**
-     * Rotates the planet around the center (specified in the param).
-     *
-     * @param timePeriod how much time has passed.
-     * @param center     the position around which planet should rotate.
-     */
-    public void rotate(double timePeriod, Point2D center) {
-        final double angle = startingRotation + (360 / getOrbitPeriod()) * timePeriod;
-        if (currentRotation.getAngle() != angle) {
-            currentRotation = new Rotate(
-                    -angle,
-                    center.getX(),
-                    center.getY()
-            );
-        }
-    }
+	/**
+	 * Gets the current rotation of the planet.
+	 *
+	 * @return the current rotation around the center.
+	 */
+	public Rotate getCurrentRotation() {
+		return currentRotation;
+	}
+
+	/**
+	 * Rotates the planet around the center (specified in the param).
+	 *
+	 * @param timePeriod how much time has passed.
+	 * @param center the position around which planet should rotate.
+	 */
+	public void rotate(double timePeriod, Point2D center) {
+		final double angle = startingRotation + (360 / getOrbitPeriod()) * timePeriod;
+		if (currentRotation.getAngle() != angle) {
+			currentRotation = new Rotate(-angle, center.getX(), center.getY());
+		}
+	}
+
 }

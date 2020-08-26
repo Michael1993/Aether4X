@@ -3,7 +3,7 @@
     Copyright (c) 2020 Mihály Verhás
     See LICENSE file.
 */
-package com.aether.ui.drawers.temp;
+package com.aether.domain.celestials.objects;
 
 import java.util.Collections;
 import java.util.List;
@@ -11,17 +11,21 @@ import java.util.List;
 import com.aether.model.celestials.bodies.CelestialBody;
 import com.aether.model.celestials.objects.CelestialObject;
 
-/** Represents the Solar System with all its planets. */
-public final class SolarSystem implements CelestialObject {
+/** Star clusters in Aether??? TODO. */
+public final class StarCluster implements CelestialObject {
+
+	private String name;
+
+	private List<CelestialBody> bodies;
 
 	@Override
 	public String getName() {
-		return "Sol-0";
+		return name;
 	}
 
 	@Override
 	public String getType() {
-		return "Solar system";
+		return CelestialObjectType.STAR_CLUSTER.toString();
 	}
 
 	@Override
@@ -31,9 +35,15 @@ public final class SolarSystem implements CelestialObject {
 
 	@Override
 	public List<CelestialBody> getBodies() {
-		return List
-				.of(new Sun(), new Mercury(), new Venus(), new Earth(), new Mars(), new Jupiter(), new Saturn(),
-					new Uranus(), new Neptune());
+		return bodies;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setBodies(List<CelestialBody> bodies) {
+		this.bodies = bodies;
 	}
 
 }
