@@ -1,6 +1,6 @@
 /*
     MIT License
-    Copyright (c) 2020 Mihály Verhás
+    Copyright (c) 2021 Mihály Verhás
     See LICENSE file.
 */
 package com.aether;
@@ -9,7 +9,6 @@ import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Calendar;
@@ -24,10 +23,12 @@ public class LicenseTest {
 	@ValueSource(strings = { "../LICENSE", "../mit-license-header" })
 	@DisplayName("Check the year on the license and header")
 	void checkLicense(String path) throws IOException {
-		var reader = new BufferedReader(new FileReader(new File(path)));
-		String current = format("Copyright (c) %s Mihály Verhás", Calendar.getInstance().get(Calendar.YEAR));
-
-		assertTrue(reader.lines().anyMatch(current::equals), "License outdated, please update.");
+		var reader = new BufferedReader(new FileReader(path));
+		assertTrue(reader
+				.lines()
+				.filter(line -> line.contains("Copyright"))
+				.allMatch(line -> line.endsWith(format("%s Mihály Verhás", Calendar.getInstance().get(Calendar.YEAR)))),
+			"License outdated, please update.");
 	}
 
 }

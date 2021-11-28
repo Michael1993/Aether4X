@@ -17,11 +17,12 @@
   </modules>
 
   <properties>
-    <java.version>13</java.version>
+    <java.version>17</java.version>
     <org.openjfx.version>13.0.1</org.openjfx.version>
     <org.junit.jupiter.version>5.6.2</org.junit.jupiter.version>
-    <spotless.version>2.0.1</spotless.version>
-    <checkstyle.version>8.27</checkstyle.version>
+    <spotless.version>2.17.4</spotless.version>
+    <checkstyle.version>9.1</checkstyle.version>
+    <liquibase.version>3.8.0</liquibase.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -65,7 +66,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.1.2</version>
         <dependencies>
           <dependency>
             <groupId>com.puppycrawl.tools</groupId>
@@ -105,6 +106,32 @@
             </licenseHeader>
           </java>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-maven-plugin</artifactId>
+        <version>${liquibase.version}</version>
+        <inherited>false</inherited>
+        <configuration>
+          <propertyFile>liquibase/liquibase.properties</propertyFile>
+        </configuration>
+        <executions>
+          <execution>
+            <id>liquibase-update</id>
+            <phase>initialize</phase>
+            <inherited>false</inherited>
+            <goals>
+              <goal>update</goal>
+            </goals>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.3.1</version>
+          </dependency>
+        </dependencies>
       </plugin>
     </plugins>
   </build>

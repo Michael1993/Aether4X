@@ -1,6 +1,6 @@
 /*
     MIT License
-    Copyright (c) 2020 Mihály Verhás
+    Copyright (c) 2021 Mihály Verhás
     See LICENSE file.
 */
 package com.aether.model.celestials.bodies;
@@ -15,7 +15,7 @@ public interface Star extends CelestialBody {
 	 *
 	 * @return the surface temperature of this star in Kelvins.
 	 */
-	int getTemperature();
+	int temperature();
 
 	/**
 	 * The color index for this star that corresponds to its temperature. Should be used for properly
@@ -23,6 +23,6 @@ public interface Star extends CelestialBody {
 	 *
 	 * @return the B-V of this star.
 	 */
-	double getColorIndex();
+	double colorIndex();
 
 }

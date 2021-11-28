@@ -1,6 +1,6 @@
 /*
     MIT License
-    Copyright (c) 2020 Mihály Verhás
+    Copyright (c) 2021 Mihály Verhás
     See LICENSE file.
 */
 package com.aether.ui.drawers;
@@ -11,7 +11,7 @@ import javafx.scene.Group;
 import com.aether.model.celestials.objects.CelestialObject;
 
 /** Draws a solar system to a supplied JavaFX {@link Group}. */
-public class SolarSystemDrawer implements Drawer<Group, CelestialObject> {
+public final class SolarSystemDrawer implements Drawer<Group, CelestialObject> {
 
 	private final PlanetDrawer planetDrawer;
 
@@ -26,7 +26,7 @@ public class SolarSystemDrawer implements Drawer<Group, CelestialObject> {
 
 	@Override
 	public void draw(Group context, CelestialObject type) {
-		type.getBodies().forEach(planet -> planetDrawer.draw(context, planet));
+		type.bodies().forEach(planet -> planetDrawer.draw(context, planet));
 	}
 
 	@Override

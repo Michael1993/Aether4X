@@ -1,6 +1,6 @@
 /*
     MIT License
-    Copyright (c) 2020 Mihály Verhás
+    Copyright (c) 2021 Mihály Verhás
     See LICENSE file.
 */
 package com.aether.ui.drawers.temp;
@@ -23,47 +23,47 @@ public final class Mercury implements CelestialBody {
 	}
 
 	@Override
-	public String getType() {
+	public String type() {
 		return "Planet";
 	}
 
 	@Override
-	public String getName() {
+	public String name() {
 		return NAME;
 	}
 
 	@Override
-	public double getMass() {
+	public double mass() {
 		return 0;
 	}
 
 	@Override
-	public double getRadius() {
+	public double radius() {
 		return PLANET_RADIUS;
 	}
 
 	@Override
-	public double getRotationPeriod() {
+	public double rotationPeriod() {
 		return 0;
 	}
 
 	@Override
-	public double getOrbitPeriod() {
+	public double orbitPeriod() {
 		return ORBIT_PERIOD;
 	}
 
 	@Override
-	public double getApoapsis() {
+	public double apoapsis() {
 		return ORBIT_APOAPSIS;
 	}
 
 	@Override
-	public double getPeriapsis() {
+	public double periapsis() {
 		return ORBIT_PERIAPSIS;
 	}
 
 	@Override
-	public List<CelestialBody> getOrbitingBodies() {
+	public List<CelestialBody> orbitingBodies() {
 		return List.of();
 	}
 

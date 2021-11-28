@@ -1,6 +1,6 @@
 /*
     MIT License
-    Copyright (c) 2020 Mihály Verhás
+    Copyright (c) 2021 Mihály Verhás
     See LICENSE file.
 */
 package com.aether.domain.celestials.objects;
@@ -12,38 +12,11 @@ import com.aether.model.celestials.bodies.CelestialBody;
 import com.aether.model.celestials.objects.CelestialObject;
 
 /** Star clusters in Aether??? TODO. */
-public final class StarCluster implements CelestialObject {
-
-	private String name;
-
-	private List<CelestialBody> bodies;
+public record StarCluster(String name, String type, List<CelestialBody> bodies) implements CelestialObject {
 
 	@Override
-	public String getName() {
-		return name;
-	}
-
-	@Override
-	public String getType() {
-		return CelestialObjectType.STAR_CLUSTER.toString();
-	}
-
-	@Override
-	public List<CelestialObject> getSubstructures() {
+	public List<CelestialObject> substructures() {
 		return Collections.emptyList();
-	}
-
-	@Override
-	public List<CelestialBody> getBodies() {
-		return bodies;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setBodies(List<CelestialBody> bodies) {
-		this.bodies = bodies;
 	}
 
 }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet  id="1"  author="Mihaly Verhas">
+        <createTable  tableName="planets">
+            <column  name="id"  type="int">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="name"  type="varchar(50)">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="type"  type="varchar(50)" />
+            <column  name="mass"  type="double(12,3)">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="radius"  type="double(12,3)">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="rotation_period"  type="double(12,3)">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="orbit_period"  type="double(12,3)">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="apoapsis"  type="double(12,3)">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="periapsis"  type="double(12,3)">
+                <constraints  nullable="false"/>
+            </column>
+            <column name="parent" type="int">
+                <constraints foreignKeyName="fk_planet_parent" references="planets(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

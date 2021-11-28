@@ -1,6 +1,6 @@
 /*
     MIT License
-    Copyright (c) 2020 Mihály Verhás
+    Copyright (c) 2021 Mihály Verhás
     See LICENSE file.
 */
 package com.aether.ui.views;
@@ -44,48 +44,48 @@ public final class CelestialBodyView implements CelestialBody {
 	}
 
 	@Override
-	public String getName() {
-		return body.getName();
+	public String name() {
+		return body.name();
 	}
 
 	@Override
-	public String getType() {
-		return body.getType();
+	public String type() {
+		return body.type();
 	}
 
 	@Override
-	public double getMass() {
-		return body.getMass();
+	public double mass() {
+		return body.mass();
 	}
 
 	@Override
-	public double getRadius() {
+	public double radius() {
 		return DEFAULT_BODY_RADIUS;
 	}
 
 	@Override
-	public double getRotationPeriod() {
-		return body.getRotationPeriod();
+	public double rotationPeriod() {
+		return body.rotationPeriod();
 	}
 
 	@Override
-	public double getOrbitPeriod() {
-		return body.getOrbitPeriod();
+	public double orbitPeriod() {
+		return body.orbitPeriod();
 	}
 
 	@Override
-	public double getApoapsis() {
-		return body.getApoapsis() * Scales.AU_TO_PIXEL.scale();
+	public double apoapsis() {
+		return body.apoapsis() * Scales.AU_TO_PIXEL.scale();
 	}
 
 	@Override
-	public double getPeriapsis() {
-		return body.getPeriapsis() * Scales.AU_TO_PIXEL.scale();
+	public double periapsis() {
+		return body.periapsis() * Scales.AU_TO_PIXEL.scale();
 	}
 
 	@Override
-	public List<CelestialBody> getOrbitingBodies() {
-		return body.getOrbitingBodies();
+	public List<CelestialBody> orbitingBodies() {
+		return body.orbitingBodies();
 	}
 
 	/**
@@ -104,7 +104,7 @@ public final class CelestialBodyView implements CelestialBody {
 	 * @param center the position around which planet should rotate.
 	 */
 	public void rotate(double timePeriod, Point2D center) {
-		final double angle = startingRotation + (360 / getOrbitPeriod()) * timePeriod;
+		final double angle = startingRotation + (360 / orbitPeriod()) * timePeriod;
 		if (currentRotation.getAngle() != angle) {
 			currentRotation = new Rotate(-angle, center.getX(), center.getY());
 		}

@@ -1,6 +1,6 @@
 /*
     MIT License
-    Copyright (c) 2020 Mihály Verhás
+    Copyright (c) 2021 Mihály Verhás
     See LICENSE file.
 */
 package com.aether.model.celestials.objects;
@@ -21,14 +21,14 @@ public interface CelestialObject {
 	 *
 	 * @return the name of this object
 	 */
-	String getName();
+	String name();
 
 	/**
 	 * Gets the type of this celestial object. E.g.: planetary system.
 	 *
 	 * @return the type of this object as text
 	 */
-	String getType();
+	String type();
 
 	/**
 	 * Gets the other celestial objects this object holds. If this object does not hold any objects,
@@ -38,7 +38,7 @@ public interface CelestialObject {
 	 *
 	 * @return the substructures of this object
 	 */
-	List<CelestialObject> getSubstructures();
+	List<CelestialObject> substructures();
 
 	/**
 	 * Gets the celestial bodies directly contained in this object. If this object does not (directly)
@@ -46,6 +46,6 @@ public interface CelestialObject {
 	 *
 	 * @return the celestial bodies contained in this object or an empty array if there is none
 	 */
-	List<CelestialBody> getBodies();
+	List<CelestialBody> bodies();
 
 }

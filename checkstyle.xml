@@ -56,7 +56,10 @@
       <property name="allowMissingPropertyJavadoc" value="true"/>
     </module>
     <!-- https://checkstyle.org/config_javadoc.html#JavadocMethod -->
-    <module name="JavadocMethod"/>
+    <module name="JavadocMethod">
+      <property name="allowMissingParamTags" value="true" />
+      <property name="allowMissingReturnTag" value="true" />
+    </module>
     <!-- Javadoc comments should start on the second line.                            -->
     <!-- https://checkstyle.sourceforge.io/config_javadoc.html#JavadocContentLocation -->
     <module name="JavadocContentLocationCheck"/>
@@ -66,6 +69,7 @@
     <!-- https://checkstyle.org/config_javadoc.html#JavadocType -->
     <module name="JavadocType">
       <property name="scope" value="public"/>
+      <property name="allowMissingParamTags" value="true" />
     </module>
     <!-- Documentation body should not be empty.                 -->
     <!-- https://checkstyle.org/config_javadoc.html#JavadocStyle -->
@@ -133,7 +137,7 @@
       <property name="format" value="^[A-Z][a-zA-Z]+$" />
       <message key="name.invalidPattern" value="Name ''{0}'' must be longer than 1 character and use PascalCase format: ''{1}''."/>
     </module>
-    <!-- Generictype parameter of a class should be a single uppercase letter. -->
+    <!-- Generic type parameter of a class should be a single uppercase letter. -->
     <!-- https://checkstyle.org/config_naming.html#ClassTypeParameterName      -->
     <module name="ClassTypeParameterName"/>
     <!-- Generic type parameter of a method should be single uppercase letter. -->

@@ -1,16 +1,17 @@
 /*
     MIT License
-    Copyright (c) 2020 Mihály Verhás
+    Copyright (c) 2021 Mihály Verhás
     See LICENSE file.
 */
 package com.aether.ui.drawers.temp;
 
 import java.util.List;
 
+import com.aether.domain.celestials.bodies.Planet;
 import com.aether.model.celestials.bodies.CelestialBody;
 
 /** Jupiter. */
-public final class Jupiter implements CelestialBody {
+public final class Jupiter {
 
 	private static final double ORBIT_APOAPSIS = 5.4588;
 	private static final double ORBIT_PERIAPSIS = 4.9501;
@@ -18,53 +19,24 @@ public final class Jupiter implements CelestialBody {
 	private static final double ORBIT_PERIOD = 4_332.59;
 	private static final String NAME = "Jupiter";
 
+	private Jupiter() {
+	}
+
 	/** Creates Jupiter. */
-	public Jupiter() {
-	}
-
-	@Override
-	public String getType() {
-		return "Planet";
-	}
-
-	@Override
-	public String getName() {
-		return NAME;
-	}
-
-	@Override
-	public double getMass() {
-		return 0;
-	}
-
-	@Override
-	public double getRadius() {
-		return PLANET_RADIUS;
-	}
-
-	@Override
-	public double getRotationPeriod() {
-		return 0;
-	}
-
-	@Override
-	public double getOrbitPeriod() {
-		return ORBIT_PERIOD;
-	}
-
-	@Override
-	public double getApoapsis() {
-		return ORBIT_APOAPSIS;
-	}
-
-	@Override
-	public double getPeriapsis() {
-		return ORBIT_PERIAPSIS;
-	}
-
-	@Override
-	public List<CelestialBody> getOrbitingBodies() {
-		return List.of();
+	public static CelestialBody get() {
+		//@formatter:off
+		return new Planet(
+				NAME,
+				"Planet",
+				0,
+				PLANET_RADIUS,
+				0,
+				ORBIT_PERIOD,
+				ORBIT_APOAPSIS,
+				ORBIT_PERIAPSIS,
+				List.of()
+		);
+		//@formatter:on
 	}
 
 }

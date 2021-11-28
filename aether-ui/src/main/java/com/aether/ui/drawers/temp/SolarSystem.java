@@ -1,6 +1,6 @@
 /*
     MIT License
-    Copyright (c) 2020 Mihály Verhás
+    Copyright (c) 2021 Mihály Verhás
     See LICENSE file.
 */
 package com.aether.ui.drawers.temp;
@@ -15,24 +15,24 @@ import com.aether.model.celestials.objects.CelestialObject;
 public final class SolarSystem implements CelestialObject {
 
 	@Override
-	public String getName() {
+	public String name() {
 		return "Sol-0";
 	}
 
 	@Override
-	public String getType() {
+	public String type() {
 		return "Solar system";
 	}
 
 	@Override
-	public List<CelestialObject> getSubstructures() {
+	public List<CelestialObject> substructures() {
 		return Collections.emptyList();
 	}
 
 	@Override
-	public List<CelestialBody> getBodies() {
+	public List<CelestialBody> bodies() {
 		return List
-				.of(new Sun(), new Mercury(), new Venus(), new Earth(), new Mars(), new Jupiter(), new Saturn(),
+				.of(new Sun(), new Mercury(), new Venus(), Earth.get(), new Mars(), Jupiter.get(), new Saturn(),
 					new Uranus(), new Neptune());
 	}
 

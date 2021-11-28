@@ -1,17 +1,18 @@
 /*
     MIT License
-    Copyright (c) 2020 Mihály Verhás
+    Copyright (c) 2021 Mihály Verhás
     See LICENSE file.
 */
 package com.aether.ui.eventhandlers;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.transform.Transform;
 
 /** Handles mouse drag events for the map. */
-public final class MapDragHandler {
+public final class MapDragHandler implements EventHandler<MouseEvent> {
 
 	private Point2D start;
 
@@ -51,6 +52,11 @@ public final class MapDragHandler {
 		if (!event.isDragDetect()) {
 			start = null;
 		}
+	}
+
+	@Override
+	public void handle(MouseEvent mouseEvent) {
+		this.drag(mouseEvent);
 	}
 
 }
