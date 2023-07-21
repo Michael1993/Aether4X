@@ -1,6 +1,6 @@
 /*
     MIT License
-    Copyright (c) 2021 Mihály Verhás
+    Copyright (c) 2023 Mihály Verhás
     See LICENSE file.
 */
 package com.aether.domain.celestials.bodies;
@@ -14,5 +14,5 @@ import com.aether.model.celestials.bodies.CelestialBody;
  */
 public record Star(String name, String type, double mass, double radius, double rotationPeriod, double orbitPeriod, double apoapsis,
                    double periapsis, List<CelestialBody> orbitingBodies, int temperature,
-                   double colorIndex) implements com.aether.model.celestials.bodies.Star {
+                   StarColor color) implements com.aether.model.celestials.bodies.Star {
 }

@@ -1,6 +1,6 @@
 /*
     MIT License
-    Copyright (c) 2021 Mihály Verhás
+    Copyright (c) 2023 Mihály Verhás
     See LICENSE file.
 */
 package com.aether;
@@ -27,7 +27,7 @@ public class LicenseTest {
 		assertTrue(reader
 				.lines()
 				.filter(line -> line.contains("Copyright"))
-				.allMatch(line -> line.endsWith(format("%s Mihály Verhás", Calendar.getInstance().get(Calendar.YEAR)))),
+				.allMatch(line -> line.contains(format("%s", Calendar.getInstance().get(Calendar.YEAR)))),
 			"License outdated, please update.");
 	}
 

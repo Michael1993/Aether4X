@@ -1,6 +1,6 @@
 /*
     MIT License
-    Copyright (c) 2021 Mihály Verhás
+    Copyright (c) 2023 Mihály Verhás
     See LICENSE file.
 */
 package com.aether.model.celestials.bodies;
@@ -18,11 +18,21 @@ public interface Star extends CelestialBody {
 	int temperature();
 
 	/**
-	 * The color index for this star that corresponds to its temperature. Should be used for properly
-	 * drawing the star on the UI. https://en.wikipedia.org/wiki/Color_index
+	 * The color for this star that corresponds to its temperature. Should be used for properly
+	 * drawing the star on the UI.
+	 * <p>
+	 * For additional information on star colors, please see the color index used in astronomy.
+	 * <a href="https://en.wikipedia.org/wiki/Color_index">Color index</a>
 	 *
-	 * @return the B-V of this star.
+	 * @return the color of this star from the {@code StarColor}.
 	 */
-	double colorIndex();
+	StarColor color();
+
+	/**
+	 * A list of all possible star colors from blue to red.
+	 */
+	enum StarColor {
+		DEEP_BLUE, BLUE, LIGHT_BLUE, CYAN, WHITE, YELLOW, RED
+	}
 
 }

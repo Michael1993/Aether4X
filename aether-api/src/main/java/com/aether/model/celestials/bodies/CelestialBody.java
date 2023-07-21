@@ -1,6 +1,6 @@
 /*
     MIT License
-    Copyright (c) 2021 Mihály Verhás
+    Copyright (c) 2023 Mihály Verhás
     See LICENSE file.
 */
 package com.aether.model.celestials.bodies;
@@ -29,7 +29,7 @@ public interface CelestialBody {
 	String type();
 
 	/**
-	 * Gets the approximate mass of the body in kilograms.
+	 * Gets the approximate mass of the body in 10^24 kilograms.
 	 *
 	 * @return the mass of the current body.
 	 */
@@ -61,7 +61,9 @@ public interface CelestialBody {
 	/**
 	 * Gets the farthest point in the orbit of a planetary body about its primary body in AUs. E.g.:
 	 * If the current body is the Earth, this returns the farthest point of the Earth's orbit from the
-	 * Sun. AU - Astronomical Unit. https://en.wikipedia.org/wiki/Astronomical_unit
+	 * Sun. AU - Astronomical Unit.
+	 * <p>
+	 * <a href="https://en.wikipedia.org/wiki/Astronomical_unit">Astronomical unit</a>
 	 *
 	 * @return the apoapsis of the current body.
 	 */
@@ -70,7 +72,9 @@ public interface CelestialBody {
 	/**
 	 * Gets the nearest point in the orbit of a planetary body about its primary body in AUs. E.g.: If
 	 * the current body is the Earth, this returns the nearest point of the Earth's orbit from the
-	 * Sun. AU - Astronomical Unit. https://en.wikipedia.org/wiki/Astronomical_unit
+	 * Sun. AU - Astronomical Unit.
+	 * <p>
+	 * <a href="https://en.wikipedia.org/wiki/Astronomical_unit">Astronomical unit</a>
 	 *
 	 * @return the periapsis of the current body.
 	 */

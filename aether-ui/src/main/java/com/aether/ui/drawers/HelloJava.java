@@ -1,9 +1,11 @@
 /*
     MIT License
-    Copyright (c) 2021 Mihály Verhás
+    Copyright (c) 2023 Mihály Verhás
     See LICENSE file.
 */
 package com.aether.ui.drawers;
+
+import java.util.ServiceLoader;
 
 import javafx.application.Application;
 import javafx.geometry.Point2D;
@@ -14,8 +16,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import com.aether.ui.drawers.temp.SolarSystem;
-import com.aether.ui.eventhandlers.MapDragHandler;
-import com.aether.ui.eventhandlers.MapZoomHandler;
+import com.aether.ui.event.NodeBasedEventHandler;
+import com.aether.ui.event.Nodes;
 
 /** Class for experimenting with JavaFX. */
 public final class HelloJava extends Application {
@@ -63,12 +65,18 @@ public final class HelloJava extends Application {
 	}
 
 	private void registerHandlers(Node system, Scene scene) {
-		final var dragHandler = new MapDragHandler(system);
-		scene.setOnMouseDragged(dragHandler::drag);
-		scene.setOnMouseReleased(dragHandler::stopAtDragEnd);
-		final var zoomHandler = new MapZoomHandler(system);
-		scene.setOnScroll(zoomHandler::scroll);
-		scene.setOnKeyPressed(zoomHandler::resetOnControlZero);
+		var eventHandlers = ServiceLoader
+				.load(NodeBasedEventHandler.class)
+				.stream()
+				.map(ServiceLoader.Provider::get)
+				.toList();
+		eventHandlers
+				.stream()
+				.filter(handler -> handler.nodes().stream().anyMatch(node -> node.equals(Nodes.MAP)))
+				.forEach(handler -> {
+					handler.init(system);
+					scene.addEventHandler(handler.eventType(), handler);
+				});
 	}
 
 }
