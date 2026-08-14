@@ -1,6 +1,6 @@
 /*
     MIT License
-    Copyright (c) 2023 Mihály Verhás
+    Copyright (c) 2026 Mihály Verhás
     See LICENSE file.
 */
 package com.aether.model.celestials.bodies;
@@ -21,12 +21,21 @@ public interface CelestialBody {
 	String name();
 
 	/**
-	 * Gets the type of the body. For example a star could return: - Red dwarf - White dwarf - Giant -
-	 * etc.
+	 * Gets the coarse type of the body (e.g. STAR, PLANET, MOON).
 	 *
-	 * @return the type of this body as text.
+	 * @return the type of this body.
 	 */
-	String type();
+	BodyType type();
+
+	/**
+	 * Gets a more nuanced, human-readable classification of the body. For example a star could return:
+	 * "Red dwarf", "Yellow dwarf", "Blue giant", etc. Defaults to the display name of {@link #type()}.
+	 *
+	 * @return the detailed type name of this body.
+	 */
+	default String typeName() {
+		return type().displayName();
+	}
 
 	/**
 	 * Gets the approximate mass of the body in 10^24 kilograms.

@@ -1,6 +1,6 @@
 /*
     MIT License
-    Copyright (c) 2023 Mihály Verhás
+    Copyright (c) 2026 Mihály Verhás
     See LICENSE file.
 */
 package com.aether.ui.views;

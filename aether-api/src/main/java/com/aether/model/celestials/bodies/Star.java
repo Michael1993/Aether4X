@@ -1,11 +1,14 @@
 /*
     MIT License
-    Copyright (c) 2023 Mihály Verhás
+    Copyright (c) 2026 Mihály Verhás
     See LICENSE file.
 */
 package com.aether.model.celestials.bodies;
 
-/** A star. TODO. */
+/**
+ * A star. Extends {@link CelestialBody} with temperature and color, which together determine
+ * the stellar classification returned by {@link #typeName()}.
+ */
 public interface Star extends CelestialBody {
 
 	/**
@@ -29,10 +32,40 @@ public interface Star extends CelestialBody {
 	StarColor color();
 
 	/**
-	 * A list of all possible star colors from blue to red.
+	 * Returns a nuanced stellar classification derived from the star's color. E.g.: "Red Dwarf" for a
+	 * cool red star, "Yellow Dwarf" for a G-type star like Sol.
+	 *
+	 * @return the stellar classification name.
+	 */
+	@Override
+	default String typeName() {
+		return color().stellarClassName();
+	}
+
+	/**
+	 * A list of all possible star colors from hottest (blue) to coolest (red), each carrying
+	 * its corresponding stellar classification name.
 	 */
 	enum StarColor {
-		DEEP_BLUE, BLUE, LIGHT_BLUE, CYAN, WHITE, YELLOW, RED
+
+		DEEP_BLUE("Blue Hypergiant"),
+		BLUE("Blue Giant"),
+		LIGHT_BLUE("Blue-White Star"),
+		CYAN("White Star"),
+		WHITE("White Dwarf"),
+		YELLOW("Yellow Dwarf"),
+		RED("Red Dwarf");
+
+		private final String stellarClassName;
+
+		StarColor(final String stellarClassName) {
+			this.stellarClassName = stellarClassName;
+		}
+
+		String stellarClassName() {
+			return stellarClassName;
+		}
+
 	}
 
 }

@@ -1,6 +1,6 @@
 /*
     MIT License
-    Copyright (c) 2023 Mihály Verhás
+    Copyright (c) 2026 Mihály Verhás
     See LICENSE file.
 */
 package com.aether.ui.drawers;
@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
+import com.aether.model.celestials.bodies.BodyType;
 import com.aether.model.celestials.bodies.CelestialBody;
 import com.aether.ui.views.CelestialBodyView;
 
@@ -64,8 +65,8 @@ public record PlanetDrawer(Point2D center) implements Drawer<Group, CelestialBod
 
 	private Node asNode(CelestialBody body) {
 		final Node node;
-		if (body.apoapsis() == 0 && body.orbitRadius() == 0) {
-			node = asSun(body);
+		if (body.type() == BodyType.STAR) {
+			node = asStar(body);
 		} else {
 			node = asCelestial(body);
 		}
@@ -83,7 +84,7 @@ public record PlanetDrawer(Point2D center) implements Drawer<Group, CelestialBod
 		return celestial;
 	}
 
-	private Node asSun(CelestialBody body) {
+	private Node asStar(CelestialBody body) {
 		final var view = new CelestialBodyView(body);
 		final Group sun = new Group();
 		final Circle sunBody = new Circle(body.radius());

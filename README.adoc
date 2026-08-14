@@ -26,11 +26,3 @@ The project has the following dependencies:
  * https://maven.apache.org/[Maven] as a build tool.
  * https://openjfx.io[JavaFX] for UI.
  * https://junit.org/junit5/docs/current/user-guide/[JUnit 5] for testing purposes.
-
-=== Currently under consideration
-
- * Spotless for automatic code formatting?
- * Adding a license/copyright notice to the Java files?
- * Spring for wiring the modules together?
- * Java ServiceLoader API for wiring the modules together?
- * Some kind of combination of the above two?

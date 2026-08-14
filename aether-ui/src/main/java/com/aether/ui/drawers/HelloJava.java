@@ -1,6 +1,6 @@
 /*
     MIT License
-    Copyright (c) 2023 Mihály Verhás
+    Copyright (c) 2026 Mihály Verhás
     See LICENSE file.
 */
 package com.aether.ui.drawers;
@@ -15,7 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import com.aether.ui.drawers.temp.SolarSystem;
+import com.aether.ui.data.SolarSystemRepository;
 import com.aether.ui.event.NodeBasedEventHandler;
 import com.aether.ui.event.Nodes;
 
@@ -61,7 +61,7 @@ public final class HelloJava extends Application {
 
 	private void drawSolarSystem(Group system, Point2D center) {
 		final SolarSystemDrawer drawer = new SolarSystemDrawer(center);
-		drawer.draw(system, new SolarSystem());
+		drawer.draw(system, SolarSystemRepository.load());
 	}
 
 	private void registerHandlers(Node system, Scene scene) {

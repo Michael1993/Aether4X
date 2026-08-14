@@ -2,6 +2,8 @@ module aether.ui {
   requires aether.api;
   requires aether.domain;
   requires javafx.graphics;
+  requires java.sql;
+  requires com.h2database;
 
   exports com.aether.ui.drawers;
 

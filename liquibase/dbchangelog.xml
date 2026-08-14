@@ -2,5 +2,8 @@
 <databaseChangeLog  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
-    <includeAll path="file:/liquibase/changelogs/" />
+    <include file="changelogs/1-create-planets-table.xml" relativeToChangelogFile="true" />
+    <include file="changelogs/2-insert-planet-data.sql" relativeToChangelogFile="true" />
+    <include file="changelogs/3-add-star-columns.xml" relativeToChangelogFile="true" />
+    <include file="changelogs/4-update-sun-star-data.sql" relativeToChangelogFile="true" />
 </databaseChangeLog>

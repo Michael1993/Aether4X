@@ -1,6 +1,6 @@
 /*
     MIT License
-    Copyright (c) 2023 Mihály Verhás
+    Copyright (c) 2026 Mihály Verhás
     See LICENSE file.
 */
 package com.aether.model.celestials.objects;
@@ -24,11 +24,21 @@ public interface CelestialObject {
 	String name();
 
 	/**
-	 * Gets the type of this celestial object. E.g.: planetary system.
+	 * Gets the coarse type of this celestial object (e.g. GALAXY, NEBULA, PLANETARY_SYSTEM).
 	 *
-	 * @return the type of this object as text
+	 * @return the type of this object.
 	 */
-	String type();
+	ObjectType type();
+
+	/**
+	 * Gets a more nuanced, human-readable classification of the object. Defaults to the display
+	 * name of {@link #type()}.
+	 *
+	 * @return the detailed type name of this object.
+	 */
+	default String typeName() {
+		return type().displayName();
+	}
 
 	/**
 	 * Gets the other celestial objects this object holds. If this object does not hold any objects,

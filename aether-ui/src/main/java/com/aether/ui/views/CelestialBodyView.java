@@ -1,6 +1,6 @@
 /*
     MIT License
-    Copyright (c) 2023 Mihály Verhás
+    Copyright (c) 2026 Mihály Verhás
     See LICENSE file.
 */
 package com.aether.ui.views;
@@ -10,6 +10,7 @@ import java.util.List;
 import javafx.geometry.Point2D;
 import javafx.scene.transform.Rotate;
 
+import com.aether.model.celestials.bodies.BodyType;
 import com.aether.model.celestials.bodies.CelestialBody;
 
 /** A proxy class for {@code CelestialBody} to be used in JavaFX. */
@@ -49,7 +50,7 @@ public final class CelestialBodyView implements CelestialBody {
 	}
 
 	@Override
-	public String type() {
+	public BodyType type() {
 		return body.type();
 	}
 

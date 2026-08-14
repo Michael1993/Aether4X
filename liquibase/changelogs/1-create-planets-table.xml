@@ -11,22 +11,22 @@
                 <constraints  nullable="false"/>
             </column>
             <column  name="type"  type="varchar(50)" />
-            <column  name="mass"  type="double(12,3)">
+            <column  name="mass"  type="double">
                 <constraints  nullable="false"/>
             </column>
-            <column  name="radius"  type="double(12,3)">
+            <column  name="radius"  type="double">
                 <constraints  nullable="false"/>
             </column>
-            <column  name="rotation_period"  type="double(12,3)">
+            <column  name="rotation_period"  type="double">
                 <constraints  nullable="false"/>
             </column>
-            <column  name="orbit_period"  type="double(12,3)">
+            <column  name="orbit_period"  type="double">
                 <constraints  nullable="false"/>
             </column>
-            <column  name="apoapsis"  type="double(12,3)">
+            <column  name="apoapsis"  type="double">
                 <constraints  nullable="false"/>
             </column>
-            <column  name="periapsis"  type="double(12,3)">
+            <column  name="periapsis"  type="double">
                 <constraints  nullable="false"/>
             </column>
             <column name="parent" type="int">
